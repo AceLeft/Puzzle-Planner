@@ -1,8 +1,8 @@
 package edu.bsu.cs222;
 
-public class WordHinter {
+public class WordGuesser {
     String template;
-    public WordHinter(String word) {
+    public WordGuesser(String word) {
         template = word;
     }
 
