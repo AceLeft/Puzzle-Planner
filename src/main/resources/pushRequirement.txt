@@ -1,0 +1,2 @@
+So that the resources folder gets pushed, this text file is in the init commit.
+Delete it whenever necessary
