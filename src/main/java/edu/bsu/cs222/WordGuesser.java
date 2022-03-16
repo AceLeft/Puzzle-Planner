@@ -24,4 +24,12 @@ public class WordGuesser {
 
         return result.toString();
     }
+
+    public void createNewTemplateWord() {
+        template = "hungus";
+    }
+
+    public String getTemplate() {
+        return template;
+    }
 }

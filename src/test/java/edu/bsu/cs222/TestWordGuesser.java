@@ -4,9 +4,9 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 public class TestWordGuesser {
+    WordGuesser wordGuesser = new WordGuesser("egg");
     @Test
     public void testDoLettersMatch(){
-        WordGuesser wordGuesser = new WordGuesser("egg");
         String kegResult = wordGuesser.doLettersMatch("keg");
         Assertions.assertEquals("-*g", kegResult);
         String eggResult = wordGuesser.doLettersMatch("egg");
@@ -14,5 +14,10 @@ public class TestWordGuesser {
         String topResult = wordGuesser.doLettersMatch("top");
         Assertions.assertEquals("---",topResult);
 
+    }
+    @Test
+    public void testCreateNewTemplateWord(){
+        wordGuesser.createNewTemplateWord();
+        Assertions.assertNotEquals("egg",wordGuesser.getTemplate());
     }
 }
