@@ -5,7 +5,7 @@ import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
 
-public class TestWordGuesser {
+public class    TestWordGuesser {
     WordGuesser wordGuesser = new WordGuesser("egg");
 
     public TestWordGuesser() throws IOException {
