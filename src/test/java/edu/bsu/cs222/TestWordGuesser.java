@@ -26,5 +26,7 @@ public class TestWordGuesser {
         wordGuesser.createNewTemplateWord();
         Assertions.assertNotEquals("egg",wordGuesser.getTemplate());
         System.out.println("Word: " + wordGuesser.getTemplate());
+        wordGuesser = new WordGuesser();
+        Assertions.assertNotEquals("egg",wordGuesser.getTemplate());
     }
 }

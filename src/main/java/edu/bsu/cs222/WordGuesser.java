@@ -5,12 +5,13 @@ import java.io.RandomAccessFile;
 
 public class WordGuesser {
     private String template;
-    RandomAccessFile randomAccessFile;
+    RandomAccessFile randomAccessFile = new RandomAccessFile("src/main/resources/WordGuesserWords.txt", "r");
     public WordGuesser(String word) throws IOException {
         template = word;
-        randomAccessFile = new RandomAccessFile("src/main/resources/WordGuesserWords.txt", "r");
     }
-
+    public WordGuesser() throws IOException{
+        createNewTemplateWord();
+    }
     public String doLettersMatch(String guess) {
         StringBuilder result = new StringBuilder();
         for (int i = 0; i < guess.length(); i++ ){
