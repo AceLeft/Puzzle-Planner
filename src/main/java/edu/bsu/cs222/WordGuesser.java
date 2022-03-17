@@ -1,9 +1,14 @@
 package edu.bsu.cs222;
 
+import java.io.IOException;
+import java.io.RandomAccessFile;
+
 public class WordGuesser {
-    String template;
-    public WordGuesser(String word) {
+    private String template;
+    RandomAccessFile randomAccessFile;
+    public WordGuesser(String word) throws IOException {
         template = word;
+        randomAccessFile = new RandomAccessFile("src/main/resources/WordGuesserWords.txt", "r");
     }
 
     public String doLettersMatch(String guess) {
@@ -25,8 +30,10 @@ public class WordGuesser {
         return result.toString();
     }
 
-    public void createNewTemplateWord() {
-        template = "hungus";
+    public void createNewTemplateWord() throws IOException {
+        int randomNumber = (int)(Math.random()*828);
+        randomAccessFile.seek(randomNumber* 8L);
+        template = randomAccessFile.readLine();
     }
 
     public String getTemplate() {

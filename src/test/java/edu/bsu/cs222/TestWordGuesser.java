@@ -3,8 +3,14 @@ package edu.bsu.cs222;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
+import java.io.IOException;
+
 public class TestWordGuesser {
     WordGuesser wordGuesser = new WordGuesser("egg");
+
+    public TestWordGuesser() throws IOException {
+    }
+
     @Test
     public void testDoLettersMatch(){
         String kegResult = wordGuesser.doLettersMatch("keg");
@@ -16,8 +22,9 @@ public class TestWordGuesser {
 
     }
     @Test
-    public void testCreateNewTemplateWord(){
+    public void testCreateNewTemplateWord() throws IOException {
         wordGuesser.createNewTemplateWord();
         Assertions.assertNotEquals("egg",wordGuesser.getTemplate());
+        System.out.println("Word: " + wordGuesser.getTemplate());
     }
 }
