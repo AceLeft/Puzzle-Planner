@@ -17,4 +17,8 @@ public class TaskInventory {
         int randomNumber = (int)(Math.random()*taskList.size());
         return taskList.get(randomNumber);
     }
+
+    public ArrayList<String> getTaskList() {
+        return taskList;
+    }
 }
