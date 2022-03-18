@@ -10,7 +10,7 @@ javafx {
 }
 
 application {
-    mainClassName = "classNameGoesHere"
+    mainClassName = "edu.bsu.cs22.view.PuzzlePlannerApplication"
 }
 
 group 'org.example'
