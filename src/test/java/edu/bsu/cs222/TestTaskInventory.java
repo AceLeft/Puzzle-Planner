@@ -21,4 +21,16 @@ public class TestTaskInventory {
         taskInventory.removeTask("stretch");
         Assertions.assertNotEquals("stretch", taskInventory.taskList.get(0));
     }
+    @Test
+    public void testGrabRandom(){
+        taskInventory.addTask("stretch");
+        taskInventory.addTask("cry");
+        taskInventory.addTask("cook");
+        taskInventory.addTask("feed hungus");
+        taskInventory.addTask("weep");
+        taskInventory.addTask("profit");
+        System.out.println("Da task be " + taskInventory.getRandom());
+        System.out.println("Da task be " + taskInventory.getRandom());
+        System.out.println("Da task be " + taskInventory.getRandom());
+    }
 }
