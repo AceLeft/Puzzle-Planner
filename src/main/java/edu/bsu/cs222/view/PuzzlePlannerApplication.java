@@ -9,6 +9,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.VBox;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 public class PuzzlePlannerApplication extends Application {
@@ -45,4 +46,15 @@ public class PuzzlePlannerApplication extends Application {
         );
         return vbox;
     }
+    public void createPuzzleDonePopUp(){
+        Stage dialogStage = new Stage();
+        dialogStage.initModality(Modality.WINDOW_MODAL);
+        Label dialogLabel = new Label("Please do the task: " +taskInventory.getRandom());
+        VBox dialogBox = new VBox();
+        dialogBox.getChildren().addAll(dialogLabel);
+        dialogStage.setScene(new Scene(dialogBox));
+        dialogStage.show();
+        dialogStage.onCloseRequestProperty();
+    }
+
 }
