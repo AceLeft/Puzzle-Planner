@@ -12,6 +12,8 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
+import java.io.IOException;
+
 public class PuzzlePlannerApplication extends Application {
     private final TextField taskInputField = new TextField();
     private final Button taskAddButton = new Button("Add");
@@ -19,7 +21,7 @@ public class PuzzlePlannerApplication extends Application {
     private final TaskInventory taskInventory = new TaskInventory();
 
     @Override
-    public void start(Stage primaryStage) {
+    public void start(Stage primaryStage) throws IOException {
         primaryStage.setScene(new Scene(createUI()));
         primaryStage.show();
         primaryStage.setOnCloseRequest(e -> {
