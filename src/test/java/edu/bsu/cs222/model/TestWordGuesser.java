@@ -19,6 +19,8 @@ public class    TestWordGuesser {
         Assertions.assertEquals("egg",eggResult);
         String topResult = wordGuesser.doLettersMatch("top");
         Assertions.assertEquals("---",topResult);
+        String gopResult = wordGuesser.doLettersMatch("gop");
+        Assertions.assertEquals("*--",gopResult);
 
     }
     @Test
