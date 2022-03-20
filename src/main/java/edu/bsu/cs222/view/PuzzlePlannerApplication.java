@@ -70,9 +70,7 @@ public class PuzzlePlannerApplication extends Application {
         vbox.getChildren().addAll(
                 taskInputField,
                 taskAddButton,
-                taskListLabel,
-                taskRemoveButton
-
+                taskListLabel
         );
         return vbox;
     }
