@@ -17,6 +17,7 @@ import java.io.IOException;
 public class PuzzlePlannerApplication extends Application {
     private final TextField taskInputField = new TextField();
     private final Button taskAddButton = new Button("Add");
+    private final Button taskRemoveButton = new Button("X");
     private final Label taskListLabel = new Label("");
     private final TaskInventory taskInventory = new TaskInventory();
     private final double SCREEN_HEIGHT = Screen.getPrimary().getBounds().getHeight();
@@ -60,10 +61,18 @@ public class PuzzlePlannerApplication extends Application {
             Platform.runLater(() -> taskListLabel.setText(finalTaskListOutput.toString()));
         });
         VBox vbox = new VBox();
+        taskRemoveButton.setOnAction((event -> {
+            vbox.getChildren().remove(taskListLabel);
+            vbox.getChildren().remove(taskRemoveButton);
+        }));
+
+
         vbox.getChildren().addAll(
                 taskInputField,
                 taskAddButton,
-                taskListLabel
+                taskListLabel,
+                taskRemoveButton
+
         );
         return vbox;
     }
