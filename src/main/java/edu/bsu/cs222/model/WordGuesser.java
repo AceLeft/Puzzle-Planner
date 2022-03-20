@@ -35,9 +35,14 @@ public class WordGuesser {
     }
 
     public void createNewTemplateWord() throws IOException {
-        int randomNumber = (int)(Math.random()*828);
-        randomAccessFile.seek(randomNumber* 8L);
+        int randomNumber = (int)(Math.random()*randomAccessFile.length());
+        int bytes = (int) (randomAccessFile.length()/828);
+        while(randomNumber% bytes !=0){
+            randomNumber-=1;
+        }
+        randomAccessFile.seek(randomNumber);
         template = randomAccessFile.readLine();
+        System.out.println(template);
     }
 
     public String getTemplate() {
