@@ -3,7 +3,6 @@ package edu.bsu.cs222.view;
 import edu.bsu.cs222.model.TaskInventory;
 import edu.bsu.cs222.model.WordGuesser;
 import javafx.application.Platform;
-import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -37,7 +36,11 @@ public class WordGuesserGameDisplay {
             previousGuesses.append(guessInputField.getText()).append("\t").append(key).append("\n");
             Platform.runLater(() -> guessesLabel.setText(previousGuesses.toString()));
             if (wordGuesser.isTemplate(guessInputField.getText())){
-                createPuzzleDonePopUp();
+                try {
+                    createPuzzleDonePopUp();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
             }
         });
         VBox vbox = new VBox();
@@ -48,17 +51,24 @@ public class WordGuesserGameDisplay {
         );
         return vbox;
     }
-    public void createPuzzleDonePopUp(){
+    public void createPuzzleDonePopUp() throws IOException {
         Stage dialogStage = new Stage();
         dialogStage.initModality(Modality.WINDOW_MODAL);
-        Label dialogLabel = new Label("Please do the task: " +taskInventory.getRandom());
-        dialogLabel.setFont(Font.font("Helvetica", 100));
+        Label taskExitLabel = new Label("Close the window to play again");
+        Label dialogLabel = new Label("Please do the task: " + taskInventory.getRandom());
+        dialogLabel.setFont(Font.font("Helvetica", 70));
+        taskExitLabel.setFont(Font.font(30));
         VBox dialogBox = new VBox();
-        dialogBox.getChildren().addAll(dialogLabel);
+        dialogBox.getChildren().addAll(
+                dialogLabel,
+                taskExitLabel
+        );
         dialogStage.setScene(new Scene(dialogBox));
         dialogStage.setWidth(SCREEN_WIDTH);
         dialogStage.setHeight(SCREEN_HEIGHT);
         dialogStage.show();
         dialogStage.onCloseRequestProperty();
+        wordGuesser.createNewTemplateWord();
+        previousGuesses.setLength(0);
     }
 }
