@@ -42,7 +42,6 @@ public class WordGuesser {
         }
         randomAccessFile.seek(randomNumber);
         template = randomAccessFile.readLine();
-        System.out.println(template);
     }
 
     public String getTemplate() {
