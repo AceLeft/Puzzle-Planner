@@ -26,6 +26,14 @@ public class PuzzlePlannerApplication extends Application {
             Platform.exit();
             System.exit(0);
         });
+        Stage gameStage = new Stage();
+        WordGuesserGameDisplay wordGuesserGameDisplay = new WordGuesserGameDisplay();
+        gameStage.setScene(new Scene(wordGuesserGameDisplay.makeWordGuesserVBox()));
+        gameStage.show();
+        gameStage.setOnCloseRequest(e -> {
+            Platform.exit();
+            System.exit(0);
+        });
     }
 
     private Parent createUI() {
@@ -46,6 +54,7 @@ public class PuzzlePlannerApplication extends Application {
         );
         return vbox;
     }
+
     public void createPuzzleDonePopUp(){
         Stage dialogStage = new Stage();
         dialogStage.initModality(Modality.WINDOW_MODAL);
