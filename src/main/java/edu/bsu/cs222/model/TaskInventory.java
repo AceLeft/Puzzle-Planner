@@ -7,7 +7,9 @@ public class TaskInventory {
     ArrayList<String> taskList = new ArrayList<>();
 
     public void addTask(String task) {
-        taskList.add(task);
+        if(!task.equals("")) {
+            taskList.add(task);
+        }
     }
     public void removeTask(String task) {
         taskList.remove(task);
