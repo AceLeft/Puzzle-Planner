@@ -14,6 +14,9 @@ public class WordGuesser {
     }
     public String doLettersMatch(String guess) {
         StringBuilder result = new StringBuilder();
+        if(guess.length() > template.length()){
+            return "";
+        }
         for (int i = 0; i < guess.length(); i++ ){
             char character = guess.charAt(i);
             if(template.indexOf(character) == -1){
