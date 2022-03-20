@@ -19,6 +19,7 @@ public class WordGuesserGameDisplay {
     private final TextField guessInputField = new TextField();
     private final Button guessButton = new Button("Guess!");
     private final Label guessesLabel = new Label();
+    private final Label instructionsLabel = new Label("");
     private final WordGuesser wordGuesser = new WordGuesser();
     private final StringBuilder previousGuesses = new StringBuilder();
     private final TaskInventory taskInventory;
@@ -27,7 +28,6 @@ public class WordGuesserGameDisplay {
 
     public WordGuesserGameDisplay(TaskInventory taskInventory) throws IOException {
         this.taskInventory = taskInventory;
-        previousGuesses.append(wordGuesser.getTemplate());
     }
 
     public VBox makeWordGuesserVBox(){
@@ -43,8 +43,13 @@ public class WordGuesserGameDisplay {
                 }
             }
         });
+        instructionsLabel.setText("""
+                Guess the 6 letter word that I'm thinking of.
+                 - means the letter is not in my word
+                 * means the letter is in the word, but not in that spot.\s""");
         VBox vbox = new VBox();
         vbox.getChildren().addAll(
+                instructionsLabel,
                 guessInputField,
                 guessButton,
                 guessesLabel
