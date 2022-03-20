@@ -15,6 +15,9 @@ public class TaskInventory {
 
     public String getRandom() {
         int randomNumber = (int)(Math.random()*taskList.size());
+        if (taskList.size() == 0){
+            return "No tasks.";
+        }
         return taskList.get(randomNumber);
     }
 
