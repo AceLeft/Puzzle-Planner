@@ -33,7 +33,9 @@ public class WordGuesserGameDisplay {
     public VBox makeWordGuesserVBox(){
         guessButton.setOnAction((event) -> {
             String key = wordGuesser.doLettersMatch(guessInputField.getText());
-            previousGuesses.append(guessInputField.getText()).append("\t").append(key).append("\n");
+            if(guessInputField.getText().length() < 7 && !guessInputField.getText().equals("")) {
+                previousGuesses.append(guessInputField.getText()).append("\t").append(key).append("\n");
+            }
             Platform.runLater(() -> guessesLabel.setText(previousGuesses.toString()));
             if (wordGuesser.isTemplate(guessInputField.getText())){
                 try {
