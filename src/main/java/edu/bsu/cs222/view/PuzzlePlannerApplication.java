@@ -29,7 +29,7 @@ public class PuzzlePlannerApplication extends Application {
             System.exit(0);
         });
         Stage gameStage = new Stage();
-        WordGuesserGameDisplay wordGuesserGameDisplay = new WordGuesserGameDisplay();
+        WordGuesserGameDisplay wordGuesserGameDisplay = new WordGuesserGameDisplay(taskInventory);
         gameStage.setScene(new Scene(wordGuesserGameDisplay.makeWordGuesserVBox()));
         gameStage.show();
         gameStage.setOnCloseRequest(e -> {
@@ -57,15 +57,6 @@ public class PuzzlePlannerApplication extends Application {
         return vbox;
     }
 
-    public void createPuzzleDonePopUp(){
-        Stage dialogStage = new Stage();
-        dialogStage.initModality(Modality.WINDOW_MODAL);
-        Label dialogLabel = new Label("Please do the task: " +taskInventory.getRandom());
-        VBox dialogBox = new VBox();
-        dialogBox.getChildren().addAll(dialogLabel);
-        dialogStage.setScene(new Scene(dialogBox));
-        dialogStage.show();
-        dialogStage.onCloseRequestProperty();
-    }
+
 
 }

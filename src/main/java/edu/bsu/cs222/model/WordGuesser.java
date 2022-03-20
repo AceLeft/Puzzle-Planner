@@ -40,4 +40,7 @@ public class WordGuesser {
     public String getTemplate() {
         return template;
     }
+    public boolean isTemplate(String guess){
+        return guess.equals(template);
+    }
 }
