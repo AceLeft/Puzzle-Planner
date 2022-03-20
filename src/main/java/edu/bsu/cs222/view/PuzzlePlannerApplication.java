@@ -9,7 +9,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.VBox;
-import javafx.stage.Modality;
+import javafx.stage.Screen;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -19,18 +19,29 @@ public class PuzzlePlannerApplication extends Application {
     private final Button taskAddButton = new Button("Add");
     private final Label taskListLabel = new Label("");
     private final TaskInventory taskInventory = new TaskInventory();
+    private final double SCREEN_HEIGHT = Screen.getPrimary().getBounds().getHeight();
+    private final double SCREEN_WIDTH = Screen.getPrimary().getBounds().getWidth();
 
     @Override
     public void start(Stage primaryStage) throws IOException {
         primaryStage.setScene(new Scene(createUI()));
+        primaryStage.setHeight(SCREEN_HEIGHT/1.3);
+        primaryStage.setWidth((SCREEN_WIDTH)/4.0);
+        primaryStage.setX((SCREEN_WIDTH)/4);
+        primaryStage.setY(SCREEN_HEIGHT/10);
         primaryStage.show();
         primaryStage.setOnCloseRequest(e -> {
             Platform.exit();
             System.exit(0);
         });
         Stage gameStage = new Stage();
-        WordGuesserGameDisplay wordGuesserGameDisplay = new WordGuesserGameDisplay(taskInventory);
+        WordGuesserGameDisplay wordGuesserGameDisplay;
+        wordGuesserGameDisplay = new WordGuesserGameDisplay(taskInventory);
         gameStage.setScene(new Scene(wordGuesserGameDisplay.makeWordGuesserVBox()));
+        gameStage.setHeight(SCREEN_HEIGHT/1.3);
+        gameStage.setWidth((SCREEN_WIDTH)/4.0);
+        gameStage.setX((SCREEN_WIDTH)*2/4);
+        gameStage.setY(SCREEN_HEIGHT/10);
         gameStage.show();
         gameStage.setOnCloseRequest(e -> {
             Platform.exit();

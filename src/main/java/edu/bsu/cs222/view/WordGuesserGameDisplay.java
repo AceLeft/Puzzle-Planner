@@ -9,6 +9,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
+import javafx.stage.Screen;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -20,6 +21,8 @@ public class WordGuesserGameDisplay {
     private final WordGuesser wordGuesser = new WordGuesser();
     private final StringBuilder previousGuesses = new StringBuilder();
     private final TaskInventory taskInventory;
+    private final double SCREEN_HEIGHT = Screen.getPrimary().getBounds().getHeight();
+    private final double SCREEN_WIDTH = Screen.getPrimary().getBounds().getWidth();
 
     public WordGuesserGameDisplay(TaskInventory taskInventory) throws IOException {
         this.taskInventory = taskInventory;
@@ -50,6 +53,8 @@ public class WordGuesserGameDisplay {
         VBox dialogBox = new VBox();
         dialogBox.getChildren().addAll(dialogLabel);
         dialogStage.setScene(new Scene(dialogBox));
+        dialogStage.setWidth(SCREEN_WIDTH);
+        dialogStage.setHeight(SCREEN_HEIGHT);
         dialogStage.show();
         dialogStage.onCloseRequestProperty();
     }
