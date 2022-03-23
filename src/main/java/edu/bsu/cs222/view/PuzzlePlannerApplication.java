@@ -27,10 +27,10 @@ public class PuzzlePlannerApplication extends Application {
     @Override
     public void start(Stage primaryStage) throws IOException {
         primaryStage.setScene(new Scene(createUI()));
-        primaryStage.setHeight(SCREEN_HEIGHT/1.3);
-        primaryStage.setWidth((SCREEN_WIDTH)/4.0);
-        primaryStage.setX((SCREEN_WIDTH)/4);
-        primaryStage.setY(SCREEN_HEIGHT/10);
+        primaryStage.setHeight(SCREEN_HEIGHT / 1.3);
+        primaryStage.setWidth((SCREEN_WIDTH) / 4.0);
+        primaryStage.setX((SCREEN_WIDTH) / 4);
+        primaryStage.setY(SCREEN_HEIGHT / 10);
         primaryStage.show();
         primaryStage.setOnCloseRequest(e -> {
             Platform.exit();
@@ -40,10 +40,10 @@ public class PuzzlePlannerApplication extends Application {
         WordGuesserGameDisplay wordGuesserGameDisplay;
         wordGuesserGameDisplay = new WordGuesserGameDisplay(taskInventory);
         gameStage.setScene(new Scene(wordGuesserGameDisplay.makeWordGuesserVBox()));
-        gameStage.setHeight(SCREEN_HEIGHT/1.3);
-        gameStage.setWidth((SCREEN_WIDTH)/4.0);
-        gameStage.setX((SCREEN_WIDTH)*2/4);
-        gameStage.setY(SCREEN_HEIGHT/10);
+        gameStage.setHeight(SCREEN_HEIGHT / 1.3);
+        gameStage.setWidth((SCREEN_WIDTH) / 4.0);
+        gameStage.setX((SCREEN_WIDTH) * 2 / 4);
+        gameStage.setY(SCREEN_HEIGHT / 10);
         gameStage.show();
         gameStage.setOnCloseRequest(e -> {
             Platform.exit();
@@ -56,7 +56,7 @@ public class PuzzlePlannerApplication extends Application {
             String userInput = taskInputField.getText();
             taskInventory.addTask(userInput);
             StringBuilder finalTaskListOutput = new StringBuilder("Tasks:\n");
-            for (String task : taskInventory.getTaskList()){
+            for (String task : taskInventory.getTaskList()) {
                 finalTaskListOutput.append(task).append("\n");
             }
             Platform.runLater(() -> taskListLabel.setText(finalTaskListOutput.toString()));
@@ -76,7 +76,4 @@ public class PuzzlePlannerApplication extends Application {
         );
         return vbox;
     }
-
-
-
 }

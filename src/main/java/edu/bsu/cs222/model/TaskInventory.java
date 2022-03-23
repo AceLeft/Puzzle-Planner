@@ -7,17 +7,18 @@ public class TaskInventory {
     ArrayList<String> taskList = new ArrayList<>();
 
     public void addTask(String task) {
-        if(!task.equals("")) {
+        if (!task.equals("")) {
             taskList.add(task);
         }
     }
+
     public void removeTask(String task) {
         taskList.remove(task);
     }
 
     public String getRandom() {
-        int randomNumber = (int)(Math.random()*taskList.size());
-        if (taskList.size() == 0){
+        int randomNumber = (int) (Math.random() * taskList.size());
+        if (taskList.size() == 0) {
             return "No tasks.";
         }
         return taskList.get(randomNumber);

@@ -30,14 +30,14 @@ public class WordGuesserGameDisplay {
         this.taskInventory = taskInventory;
     }
 
-    public VBox makeWordGuesserVBox(){
+    public VBox makeWordGuesserVBox() {
         guessButton.setOnAction((event) -> {
             String key = wordGuesser.doLettersMatch(guessInputField.getText());
-            if(guessInputField.getText().length() < 7 && !guessInputField.getText().equals("")) {
+            if (guessInputField.getText().length() < 7 && !guessInputField.getText().equals("")) {
                 previousGuesses.append(guessInputField.getText()).append("\t").append(key).append("\n");
             }
             Platform.runLater(() -> guessesLabel.setText(previousGuesses.toString()));
-            if (wordGuesser.isTemplate(guessInputField.getText())){
+            if (wordGuesser.isTemplate(guessInputField.getText())) {
                 try {
                     createPuzzleDonePopUp();
                 } catch (IOException e) {
@@ -58,6 +58,7 @@ public class WordGuesserGameDisplay {
         );
         return vbox;
     }
+
     public void createPuzzleDonePopUp() throws IOException {
         Stage dialogStage = new Stage();
         dialogStage.initModality(Modality.WINDOW_MODAL);
