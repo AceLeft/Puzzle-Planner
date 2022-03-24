@@ -32,7 +32,7 @@ public class WordGuesserGameDisplay {
 
     public VBox makeWordGuesserVBox() {
         guessButton.setOnAction((event) -> {
-            String key = wordGuesser.doLettersMatch(guessInputField.getText());
+            String key = wordGuesser.makeClueFromGuess(guessInputField.getText());
             if (guessInputField.getText().length() < 7 && !guessInputField.getText().equals("")) {
                 previousGuesses.append(guessInputField.getText()).append("\t").append(key).append("\n");
             }

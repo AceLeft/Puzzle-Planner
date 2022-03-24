@@ -15,24 +15,24 @@ public class WordGuesser {
         createNewTemplateWord();
     }
 
-    public String doLettersMatch(String guess) {
-        StringBuilder result = new StringBuilder();
+    public String makeClueFromGuess(String guess) {
+        StringBuilder clue = new StringBuilder();
         if (guess.length() > template.length()) {
             return "";
         }
         for (int i = 0; i < guess.length(); i++) {
             char character = guess.charAt(i);
             if (template.indexOf(character) == -1) {
-                result.append("-");
+                clue.append("-");
             } else if (template.charAt(i) == character) {
-                result.append(character);
+                clue.append(character);
             } else {
-                result.append("*");
+                clue.append("*");
             }
 
         }
 
-        return result.toString();
+        return clue.toString();
     }
 
     public void createNewTemplateWord() throws IOException {
