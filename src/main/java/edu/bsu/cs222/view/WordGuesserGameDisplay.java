@@ -32,12 +32,17 @@ public class WordGuesserGameDisplay {
 
     public VBox makeWordGuesserVBox() {
         guessButton.setOnAction((event) -> {
-            String key = wordGuesser.makeClueFromGuess(guessInputField.getText());
+            String guess = guessInputField.getText();
+            String key = wordGuesser.makeClueFromGuess(guess);
+            StringBuilder keyReformatted = new StringBuilder();
+            for(char character : key.toCharArray()){
+                keyReformatted.append(character).append(" ");
+            }
             if (guessInputField.getText().length() < 7 && !guessInputField.getText().equals("")) {
-                previousGuesses.append(guessInputField.getText()).append("\t").append(key).append("\n");
+                previousGuesses.append(guess).append("\t\t").append(keyReformatted).append("\n");
             }
             Platform.runLater(() -> guessesLabel.setText(previousGuesses.toString()));
-            if (wordGuesser.isTemplate(guessInputField.getText())) {
+            if (wordGuesser.isTemplate(guess)) {
                 try {
                     createPuzzleDonePopUp();
                 } catch (IOException e) {
