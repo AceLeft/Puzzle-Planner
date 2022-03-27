@@ -5,13 +5,8 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
 
-import java.io.IOException;
-
 public class    TestWordGuesser {
     WordGuesser wordGuesser = new WordGuesser("egg");
-
-    public TestWordGuesser() throws IOException {
-    }
 
     @ParameterizedTest
     @CsvSource({"keg, -*g","egg, egg","top, ---","gop, *--"})
@@ -21,11 +16,11 @@ public class    TestWordGuesser {
     }
 
     @Test
-    public void testCreateNewTemplateWord() throws IOException {
+    public void testCreateNewTemplateWord(){
         wordGuesser.createNewTemplateWord();
-        Assertions.assertNotEquals("egg",wordGuesser.getTemplate());
-        System.out.println("Word: " + wordGuesser.getTemplate());
+        Assertions.assertNotEquals("egg",wordGuesser.getTemplateWord());
+        System.out.println("Word: " + wordGuesser.getTemplateWord());
         wordGuesser = new WordGuesser();
-        Assertions.assertNotEquals("egg",wordGuesser.getTemplate());
+        Assertions.assertNotEquals("egg",wordGuesser.getTemplateWord());
     }
 }

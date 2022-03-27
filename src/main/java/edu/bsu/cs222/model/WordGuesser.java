@@ -1,37 +1,35 @@
 package edu.bsu.cs222.model;
 
-import java.io.IOException;
-import java.io.RandomAccessFile;
 import java.util.ArrayList;
 
 public class WordGuesser {
-    private String template;
-    RandomAccessFile randomAccessFile = new RandomAccessFile("src/main/resources/WordGuesserWords.txt", "r");
+    private String templateWord;
+    private final WordGuesserWordList wordGuesserWordList = new WordGuesserWordList();
 
-    public WordGuesser(String word) throws IOException {
-        template = word;
+    public WordGuesser(String word){
+        templateWord = word;
     }
 
-    public WordGuesser() throws IOException {
+    public WordGuesser(){
         createNewTemplateWord();
     }
 
     public String makeClueFromGuess(String guess) {
-        if (guess.length() != template.length()) {
+        if (guess.length() != templateWord.length()) {
             return "";
         }
         ArrayList<String> templateLetters = new ArrayList<>();
         ArrayList<String> guessLetters = new ArrayList<>();
-        String[] clueLetters = new String[template.length()];
+        String[] clueLetters = new String[templateWord.length()];
         //initialize templateLetters and guessLetters
-        for(int i = 0; i < template.length(); i++){
-            templateLetters.add(String.valueOf(template.charAt(i)));
+        for(int i = 0; i < templateWord.length(); i++){
+            templateLetters.add(String.valueOf(templateWord.charAt(i)));
             guessLetters.add(String.valueOf(guess.charAt(i)));
         }
 
-        for(int i = 0; i < template.length(); i++){
+        for(int i = 0; i < templateWord.length(); i++){
             char character = guess.charAt(i);
-            if (template.charAt(i) == character) {
+            if (templateWord.charAt(i) == character) {
                 clueLetters[i] = String.valueOf(character);
                 templateLetters.set(i,"");
                 guessLetters.set(i,"");
@@ -58,21 +56,16 @@ public class WordGuesser {
         return clue.toString();
     }
 
-    public void createNewTemplateWord() throws IOException {
-        int randomNumber = (int) (Math.random() * randomAccessFile.length());
-        int bytes = (int) (randomAccessFile.length() / 828);
-        while (randomNumber % bytes != 0) {
-            randomNumber -= 1;
-        }
-        randomAccessFile.seek(randomNumber);
-        template = randomAccessFile.readLine();
+    public void createNewTemplateWord(){
+        int randomNumber = (int) (Math.random() * wordGuesserWordList.getWordListLength());
+        templateWord = wordGuesserWordList.getWordAt(randomNumber);
     }
 
-    public String getTemplate() {
-        return template;
+    public String getTemplateWord(){
+        return templateWord;
     }
 
-    public boolean isTemplate(String guess) {
-        return guess.equals(template);
+    public boolean isTemplate(String guess){
+        return guess.equals(templateWord);
     }
 }
