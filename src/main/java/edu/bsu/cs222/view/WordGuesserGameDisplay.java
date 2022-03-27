@@ -1,7 +1,7 @@
 package edu.bsu.cs222.view;
 
 import edu.bsu.cs222.model.TaskInventory;
-import edu.bsu.cs222.model.WordGuesser;
+import edu.bsu.cs222.model.WordGuesserGame;
 import javafx.application.Platform;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -20,13 +20,13 @@ public class WordGuesserGameDisplay {
     private final Button guessButton = new Button("Guess!");
     private final Label guessesLabel = new Label();
     private final Label instructionsLabel = new Label("");
-    private final WordGuesser wordGuesser = new WordGuesser();
+    private final WordGuesserGame wordGuesser = new WordGuesserGame();
     private final StringBuilder previousGuesses = new StringBuilder();
     private final TaskInventory taskInventory;
     private final double SCREEN_HEIGHT = Screen.getPrimary().getBounds().getHeight();
     private final double SCREEN_WIDTH = Screen.getPrimary().getBounds().getWidth();
 
-    public WordGuesserGameDisplay(TaskInventory taskInventory) throws IOException {
+    public WordGuesserGameDisplay(TaskInventory taskInventory){
         this.taskInventory = taskInventory;
     }
 

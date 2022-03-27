@@ -2,15 +2,15 @@ package edu.bsu.cs222.model;
 
 import java.util.ArrayList;
 
-public class WordGuesser {
+public class WordGuesserGame{
     private String templateWord;
     private final WordGuesserWordList wordGuesserWordList = new WordGuesserWordList();
 
-    public WordGuesser(String word){
+    public WordGuesserGame(String word){
         templateWord = word;
     }
 
-    public WordGuesser(){
+    public WordGuesserGame(){
         createNewTemplateWord();
     }
 

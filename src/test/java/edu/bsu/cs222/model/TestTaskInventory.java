@@ -21,7 +21,7 @@ public class TestTaskInventory {
         Assertions.assertNotEquals("stretch", taskInventory.getTaskAt(0));
     }
     @Test
-    public void testGrabRandom(){
+    public void testGetRandom(){
         taskInventory.addTask("stretch");
         taskInventory.addTask("dishes");
         taskInventory.addTask("cook");
