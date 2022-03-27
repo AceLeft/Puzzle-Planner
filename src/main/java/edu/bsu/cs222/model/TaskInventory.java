@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 public class TaskInventory {
 
-    ArrayList<String> taskList = new ArrayList<>();
+    private final ArrayList<String> taskList = new ArrayList<>();
 
     public void addTask(String task) {
         if (!task.equals("")) {
@@ -22,6 +22,10 @@ public class TaskInventory {
             return "No tasks.";
         }
         return taskList.get(randomNumber);
+    }
+
+    public String getTaskAt(int index){
+        return taskList.get(index);
     }
 
     public ArrayList<String> getTaskList() {

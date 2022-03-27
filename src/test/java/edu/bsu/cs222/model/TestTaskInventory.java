@@ -9,15 +9,16 @@ public class TestTaskInventory {
     public void testAddTask(){
         taskInventory.addTask("stretch");
         taskInventory.addTask("dishes");
-        Assertions.assertEquals("stretch",taskInventory.taskList.get(0));
-        Assertions.assertEquals("dishes",taskInventory.taskList.get(1));
+        Assertions.assertEquals("stretch",taskInventory.getTaskAt(0));
+        Assertions.assertEquals("dishes",taskInventory.getTaskAt(1));
+
     }
     @Test
     public void testRemoveTask(){
         taskInventory.addTask("stretch");
         taskInventory.addTask("dishes");
         taskInventory.removeTask("stretch");
-        Assertions.assertNotEquals("stretch", taskInventory.taskList.get(0));
+        Assertions.assertNotEquals("stretch", taskInventory.getTaskAt(0));
     }
     @Test
     public void testGrabRandom(){
