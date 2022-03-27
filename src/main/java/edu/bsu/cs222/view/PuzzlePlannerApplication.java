@@ -32,10 +32,7 @@ public class PuzzlePlannerApplication extends Application {
         primaryStage.setX((SCREEN_WIDTH) / 4);
         primaryStage.setY(SCREEN_HEIGHT / 10);
         primaryStage.show();
-        primaryStage.setOnCloseRequest(e -> {
-            Platform.exit();
-            System.exit(0);
-        });
+        primaryStage.setOnCloseRequest(e -> Platform.exit());
         Stage gameStage = new Stage();
         WordGuesserGameDisplay wordGuesserGameDisplay;
         wordGuesserGameDisplay = new WordGuesserGameDisplay(taskInventory);
@@ -45,10 +42,7 @@ public class PuzzlePlannerApplication extends Application {
         gameStage.setX((SCREEN_WIDTH) * 2 / 4);
         gameStage.setY(SCREEN_HEIGHT / 10);
         gameStage.show();
-        gameStage.setOnCloseRequest(e -> {
-            Platform.exit();
-            System.exit(0);
-        });
+        gameStage.setOnCloseRequest(e -> Platform.exit());
     }
 
     private Parent createUI() {
