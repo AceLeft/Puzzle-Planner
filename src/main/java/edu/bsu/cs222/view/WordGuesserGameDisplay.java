@@ -4,9 +4,7 @@ import edu.bsu.cs222.model.TaskInventory;
 import edu.bsu.cs222.model.WordGuesserGame;
 import javafx.application.Platform;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.stage.Modality;
@@ -29,7 +27,7 @@ public class WordGuesserGameDisplay {
         this.taskInventory = taskInventory;
     }
 
-    public VBox makeWordGuesserVBox() {
+    public Tab makeWordGuesserGameTab() {
         guessButton.setOnAction((event) -> {
             String guess = guessInputField.getText();
             String key = wordGuesser.makeClueFromGuess(guess);
@@ -56,7 +54,7 @@ public class WordGuesserGameDisplay {
                 guessButton,
                 guessesLabel
         );
-        return vbox;
+        return new Tab("Word Guesser",vbox);
     }
 
     public void createPuzzleDonePopUp() {
