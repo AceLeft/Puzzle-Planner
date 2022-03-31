@@ -15,13 +15,13 @@ public class WordGuesserGame{
     }
 
     public String makeClueFromGuess(String guess) {
+        guess = guess.toLowerCase();
         if (guess.length() != templateWord.length()) {
             return "";
         }
         ArrayList<String> templateLetters = new ArrayList<>();
         ArrayList<String> guessLetters = new ArrayList<>();
         String[] clueLetters = new String[templateWord.length()];
-        //initialize templateLetters and guessLetters
         for(int i = 0; i < templateWord.length(); i++){
             templateLetters.add(String.valueOf(templateWord.charAt(i)));
             guessLetters.add(String.valueOf(guess.charAt(i)));
