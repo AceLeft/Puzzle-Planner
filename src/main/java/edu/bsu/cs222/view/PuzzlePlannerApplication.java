@@ -57,6 +57,7 @@ public class PuzzlePlannerApplication extends Application {
                 taskListLabel
         );
         Tab taskTab = new Tab("Tasks", vbox);
+        puzzlePlannerAppTabPane.setTabClosingPolicy(TabPane.TabClosingPolicy.UNAVAILABLE);
         puzzlePlannerAppTabPane.getTabs().add(taskTab);
         WordGuesserGameDisplay wordGuesserGameDisplay = new WordGuesserGameDisplay(taskInventory);
         puzzlePlannerAppTabPane.getTabs().add(wordGuesserGameDisplay.makeWordGuesserGameTab());
