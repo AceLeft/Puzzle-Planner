@@ -12,7 +12,7 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
 
-import java.io.IOException;
+
 
 public class PuzzlePlannerApplication extends Application {
     private final TextField taskInputField = new TextField();
@@ -25,7 +25,7 @@ public class PuzzlePlannerApplication extends Application {
     private final double SCREEN_WIDTH = Screen.getPrimary().getBounds().getWidth();
 
     @Override
-    public void start(Stage primaryStage) throws IOException {
+    public void start(Stage primaryStage) {
         primaryStage.setScene(new Scene(createUI()));
         primaryStage.setHeight(SCREEN_HEIGHT / 1.3);
         primaryStage.setWidth((SCREEN_WIDTH) / 4.0);

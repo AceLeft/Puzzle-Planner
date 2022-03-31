@@ -13,7 +13,6 @@ import javafx.stage.Modality;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
 
-import java.io.IOException;
 
 public class WordGuesserGameDisplay {
     private final TextField guessInputField = new TextField();
@@ -43,12 +42,8 @@ public class WordGuesserGameDisplay {
             }
             Platform.runLater(() -> guessesLabel.setText(previousGuesses.toString()));
             if (wordGuesser.isTemplate(guess)) {
-                try {
                     createPuzzleDonePopUp();
-                } catch (IOException e) {
-                    e.printStackTrace();
                 }
-            }
         });
         instructionsLabel.setText("""
                 Guess the 6 letter word that I'm thinking of.
@@ -64,7 +59,7 @@ public class WordGuesserGameDisplay {
         return vbox;
     }
 
-    public void createPuzzleDonePopUp() throws IOException {
+    public void createPuzzleDonePopUp() {
         Stage dialogStage = new Stage();
         dialogStage.initModality(Modality.WINDOW_MODAL);
         Label taskExitLabel = new Label("Close the window to play again");
