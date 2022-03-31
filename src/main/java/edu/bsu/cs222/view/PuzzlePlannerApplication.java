@@ -5,13 +5,10 @@ import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.layout.VBox;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
-
 
 
 public class PuzzlePlannerApplication extends Application {
@@ -23,6 +20,7 @@ public class PuzzlePlannerApplication extends Application {
     private final TaskInventory taskInventory = new TaskInventory();
     private final double SCREEN_HEIGHT = Screen.getPrimary().getBounds().getHeight();
     private final double SCREEN_WIDTH = Screen.getPrimary().getBounds().getWidth();
+    private final TabPane puzzlePlannerAppTabPane = new TabPane();
 
     @Override
     public void start(Stage primaryStage) {
@@ -33,16 +31,6 @@ public class PuzzlePlannerApplication extends Application {
         primaryStage.setY(SCREEN_HEIGHT / 10);
         primaryStage.show();
         primaryStage.setOnCloseRequest(e -> Platform.exit());
-        Stage gameStage = new Stage();
-        WordGuesserGameDisplay wordGuesserGameDisplay;
-        wordGuesserGameDisplay = new WordGuesserGameDisplay(taskInventory);
-        gameStage.setScene(new Scene(wordGuesserGameDisplay.makeWordGuesserVBox()));
-        gameStage.setHeight(SCREEN_HEIGHT / 1.3);
-        gameStage.setWidth((SCREEN_WIDTH) / 4.0);
-        gameStage.setX((SCREEN_WIDTH) * 2 / 4);
-        gameStage.setY(SCREEN_HEIGHT / 10);
-        gameStage.show();
-        gameStage.setOnCloseRequest(e -> Platform.exit());
     }
 
     private Parent createUI() {
@@ -68,6 +56,10 @@ public class PuzzlePlannerApplication extends Application {
                 taskAddButton,
                 taskListLabel
         );
-        return vbox;
+        Tab taskTab = new Tab("Tasks", vbox);
+        puzzlePlannerAppTabPane.getTabs().add(taskTab);
+        WordGuesserGameDisplay wordGuesserGameDisplay = new WordGuesserGameDisplay(taskInventory);
+        puzzlePlannerAppTabPane.getTabs().add(wordGuesserGameDisplay.makeWordGuesserGameTab());
+        return puzzlePlannerAppTabPane;
     }
 }

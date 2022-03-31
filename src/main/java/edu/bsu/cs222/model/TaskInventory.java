@@ -22,7 +22,7 @@ public class TaskInventory {
         try{
             task = taskList.get(randomNumber);
         }
-        catch(ArrayIndexOutOfBoundsException e){
+        catch(IndexOutOfBoundsException e){
             task = "You have no tasks in your task list.";
         }
         return task;
