@@ -46,8 +46,6 @@ public class PuzzlePlannerApplication extends Application {
                 vbox.getChildren().remove(removeNextButton);
             }));
             vbox.getChildren().addAll(nextLabel, removeNextButton);
-
-            //Platform.runLater(() -> taskListLabel.setText(finalTaskListOutput.toString()));
             taskInputField.clear();
         });
 
