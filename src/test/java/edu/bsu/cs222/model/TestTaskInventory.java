@@ -20,15 +20,5 @@ public class TestTaskInventory {
         taskInventory.removeTask("stretch");
         Assertions.assertNotEquals("stretch", taskInventory.getTaskAt(0));
     }
-    @Test
-    public void testGetRandom(){
-        taskInventory.addTask("stretch");
-        taskInventory.addTask("dishes");
-        taskInventory.addTask("cook");
-        taskInventory.addTask("laundry");
-        taskInventory.addTask("profit");
-        System.out.println("task: " + taskInventory.getRandom());
-        System.out.println("task: " + taskInventory.getRandom());
-        System.out.println("task: " + taskInventory.getRandom());
-    }
+
 }
