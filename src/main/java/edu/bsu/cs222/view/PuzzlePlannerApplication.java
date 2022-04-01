@@ -22,7 +22,6 @@ public class PuzzlePlannerApplication extends Application {
     private final TabPane puzzlePlannerAppTabPane = new TabPane();
 
 
-
     @Override
     public void start(Stage primaryStage) {
         primaryStage.setScene(new Scene(createUI()));
@@ -48,7 +47,6 @@ public class PuzzlePlannerApplication extends Application {
             vbox.getChildren().addAll(nextLabel, removeNextButton);
             taskInputField.clear();
         });
-
 
 
         vbox.getChildren().addAll(
