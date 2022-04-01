@@ -45,8 +45,9 @@ public class WordGuesserGameDisplay {
         });
         instructionsLabel.setText("""
                 Guess the 6 letter word that I'm thinking of.
-                 - means the letter is not in my word
-                 * means the letter is in the word, but not in that spot.\s""");
+                 When you input a word, you will receive a clue.
+                 A "-" means the letter is not in my word
+                 A "*" means the letter is in the word, but not in that spot.\s""");
         VBox vbox = new VBox();
         vbox.getChildren().addAll(
                 instructionsLabel,
