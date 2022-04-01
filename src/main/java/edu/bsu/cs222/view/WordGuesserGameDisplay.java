@@ -66,6 +66,7 @@ public class WordGuesserGameDisplay {
         dialogLabel.setFont(Font.font("Helvetica", 60));
         taskExitLabel.setFont(Font.font(30));
         VBox dialogBox = new VBox();
+        dialogBox.setStyle("-fx-padding:5px");
         dialogBox.getChildren().addAll(
                 dialogLabel,
                 taskExitLabel

@@ -61,6 +61,7 @@ public class PuzzlePlannerApplication extends Application {
         puzzlePlannerAppTabPane.getTabs().add(taskTab);
         WordGuesserGameDisplay wordGuesserGameDisplay = new WordGuesserGameDisplay(taskInventory);
         puzzlePlannerAppTabPane.getTabs().add(wordGuesserGameDisplay.makeWordGuesserGameTab());
+        puzzlePlannerAppTabPane.setStyle("-fx-padding: 5px");
         return puzzlePlannerAppTabPane;
     }
 }
