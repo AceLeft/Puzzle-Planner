@@ -61,9 +61,9 @@ public class WordGuesserGameDisplay {
     public void createPuzzleDonePopUp() {
         Stage dialogStage = new Stage();
         dialogStage.initModality(Modality.WINDOW_MODAL);
-        Label taskExitLabel = new Label("Close the window to play again");
-        Label dialogLabel = new Label("Please do the task: " + taskInventory.getRandom());
-        dialogLabel.setFont(Font.font("Helvetica", 70));
+        Label taskExitLabel = new Label("Close the window when you're done.");
+        Label dialogLabel = new Label("You won! Complete this task to play again: " + taskInventory.getRandom());
+        dialogLabel.setFont(Font.font("Helvetica", 60));
         taskExitLabel.setFont(Font.font(30));
         VBox dialogBox = new VBox();
         dialogBox.getChildren().addAll(
