@@ -16,7 +16,7 @@ public class PuzzlePlannerApplication extends Application {
     private final Button taskAddButton = new Button("Add");
     private final Button taskRemoveButton = new Button("X");
     private final Label taskListLabel = new Label("");
-    private final Label instructionsLabel = new Label("Input your tasks here");
+    private final Label instructionsLabel = new Label("Create a To-Do list by adding a task.");
     private final TaskInventory taskInventory = new TaskInventory();
     private final double SCREEN_HEIGHT = Screen.getPrimary().getBounds().getHeight();
     private final double SCREEN_WIDTH = Screen.getPrimary().getBounds().getWidth();
