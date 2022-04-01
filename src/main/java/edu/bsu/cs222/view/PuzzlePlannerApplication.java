@@ -10,6 +10,8 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
 
+import java.io.IOException;
+
 
 public class PuzzlePlannerApplication extends Application {
     private final TextField taskInputField = new TextField();
@@ -20,6 +22,9 @@ public class PuzzlePlannerApplication extends Application {
     private final double SCREEN_HEIGHT = Screen.getPrimary().getBounds().getHeight();
     private final double SCREEN_WIDTH = Screen.getPrimary().getBounds().getWidth();
     private final TabPane puzzlePlannerAppTabPane = new TabPane();
+
+    public PuzzlePlannerApplication() throws IOException {
+    }
 
     @Override
     public void start(Stage primaryStage) {
