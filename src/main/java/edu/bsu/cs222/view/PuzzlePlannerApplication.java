@@ -42,6 +42,7 @@ public class PuzzlePlannerApplication extends Application {
                 finalTaskListOutput.append(task).append("\n");
             }
             Platform.runLater(() -> taskListLabel.setText(finalTaskListOutput.toString()));
+            taskInputField.clear();
         });
         VBox vbox = new VBox();
         taskRemoveButton.setOnAction((event -> {

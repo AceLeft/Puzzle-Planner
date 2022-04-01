@@ -42,6 +42,7 @@ public class WordGuesserGameDisplay {
             if (wordGuesser.isTemplate(guess)) {
                     createPuzzleDonePopUp();
                 }
+            guessInputField.clear();
         });
         instructionsLabel.setText("""
                 Guess the 6 letter word that I'm thinking of.
