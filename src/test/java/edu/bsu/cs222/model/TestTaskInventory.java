@@ -21,7 +21,7 @@ public class TestTaskInventory {
     }
 
     @Test
-    public void testRemoveTask() {
+    public void testRemoveTask() throws IOException {
         taskInventory.addTask("stretch");
         taskInventory.addTask("dishes");
         taskInventory.removeTask("stretch");

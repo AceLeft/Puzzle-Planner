@@ -34,7 +34,11 @@ public class PuzzlePlannerApplication extends Application {
         primaryStage.setX((SCREEN_WIDTH) / 4);
         primaryStage.setY(SCREEN_HEIGHT / 10);
         primaryStage.show();
-        primaryStage.setOnCloseRequest(e -> Platform.exit());
+        primaryStage.setOnCloseRequest(e -> {
+            taskInventory.closePrintWriter();
+            Platform.exit();
+        });
+
     }
 
     private Parent createUI() {
@@ -42,13 +46,7 @@ public class PuzzlePlannerApplication extends Application {
         taskAddButton.setOnAction((event) -> {
             String userInput = taskInputField.getText();
             taskInventory.addTask(userInput);
-            Label nextLabel = new Label(userInput);
-            Button removeNextButton = new Button("Delete");
-            removeNextButton.setOnAction((event2 -> {
-                vbox.getChildren().remove(nextLabel);
-                vbox.getChildren().remove(removeNextButton);
-            }));
-            vbox.getChildren().addAll(nextLabel, removeNextButton);
+            createTaskLabelAndDeleteButton(userInput, vbox);
             taskInputField.clear();
         });
 
@@ -58,6 +56,9 @@ public class PuzzlePlannerApplication extends Application {
                 taskAddButton,
                 taskListLabel
         );
+        for(String task : taskInventory.getTaskList()){
+            createTaskLabelAndDeleteButton(task, vbox);
+        }
         Tab taskTab = new Tab("Tasks", vbox);
         puzzlePlannerAppTabPane.setTabClosingPolicy(TabPane.TabClosingPolicy.UNAVAILABLE);
         puzzlePlannerAppTabPane.getTabs().add(taskTab);
@@ -65,5 +66,19 @@ public class PuzzlePlannerApplication extends Application {
         puzzlePlannerAppTabPane.getTabs().add(wordGuesserGameDisplay.makeWordGuesserGameTab());
         puzzlePlannerAppTabPane.setStyle("-fx-padding: 5px");
         return puzzlePlannerAppTabPane;
+    }
+    private void createTaskLabelAndDeleteButton(String userInput, VBox vbox){
+        Label nextLabel = new Label(userInput);
+        Button removeNextButton = new Button("Delete");
+        removeNextButton.setOnAction((event2 -> {
+            try {
+                taskInventory.removeTask(nextLabel.getText());
+            } catch (IOException e) {
+                //file error
+            }
+            vbox.getChildren().remove(nextLabel);
+            vbox.getChildren().remove(removeNextButton);
+        }));
+        vbox.getChildren().addAll(nextLabel, removeNextButton);
     }
 }
