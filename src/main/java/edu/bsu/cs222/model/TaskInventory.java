@@ -10,14 +10,8 @@ public class TaskInventory {
     private PrintWriter tasksFile;
 
     public TaskInventory() throws IOException {
-        PrintWriter tasksFile1;
-        try {
-            tasksFile1 = new PrintWriter(new FileWriter("src/main/resources/tasks.txt",true));
-        }
-        catch(FileNotFoundException e){
-            tasksFile1 = new PrintWriter(new FileWriter("src/main/resources/tasks.txt"));
-        }
-        tasksFile = tasksFile1;
+
+        tasksFile = new PrintWriter(new FileWriter("src/main/resources/tasks.txt",true));
         Scanner taskScanner = new Scanner(new File("src/main/resources/tasks.txt"));
         while(taskScanner.hasNext()){
             taskList.add(taskScanner.nextLine());
