@@ -38,7 +38,6 @@ public class PuzzlePlannerApplication extends Application {
             taskInventory.closePrintWriter();
             Platform.exit();
         });
-
     }
 
     private Parent createUI() {
@@ -56,7 +55,7 @@ public class PuzzlePlannerApplication extends Application {
                 taskAddButton,
                 taskListLabel
         );
-        for(String task : taskInventory.getTaskList()){
+        for (String task : taskInventory.getTaskList()) {
             createTaskLabelAndDeleteButton(task, vbox);
         }
         Tab taskTab = new Tab("Tasks", vbox);
@@ -67,14 +66,15 @@ public class PuzzlePlannerApplication extends Application {
         puzzlePlannerAppTabPane.setStyle("-fx-padding: 5px");
         return puzzlePlannerAppTabPane;
     }
-    private void createTaskLabelAndDeleteButton(String userInput, VBox vbox){
+
+    private void createTaskLabelAndDeleteButton(String userInput, VBox vbox) {
         Label nextLabel = new Label(userInput);
         Button removeNextButton = new Button("Delete");
         removeNextButton.setOnAction((event2 -> {
             try {
                 taskInventory.removeTask(nextLabel.getText());
             } catch (IOException e) {
-                //file error
+                e.printStackTrace();
             }
             vbox.getChildren().remove(nextLabel);
             vbox.getChildren().remove(removeNextButton);

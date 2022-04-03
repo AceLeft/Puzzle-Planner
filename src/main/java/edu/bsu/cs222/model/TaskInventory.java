@@ -10,7 +10,6 @@ public class TaskInventory {
     private PrintWriter tasksFile;
 
     public TaskInventory() throws IOException {
-
         tasksFile = new PrintWriter(new FileWriter("src/main/resources/tasks.txt",true));
         Scanner taskScanner = new Scanner(new File("src/main/resources/tasks.txt"));
         while(taskScanner.hasNext()){
