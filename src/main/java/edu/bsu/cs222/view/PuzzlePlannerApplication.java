@@ -6,9 +6,11 @@ import javafx.application.Platform;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.input.KeyCode;
 import javafx.scene.layout.VBox;
-import javafx.stage.Screen;
 import javafx.stage.Stage;
+
+import java.awt.event.KeyEvent;
 
 
 public class PuzzlePlannerApplication extends Application {
@@ -18,22 +20,18 @@ public class PuzzlePlannerApplication extends Application {
     private final Label taskListLabel = new Label("");
     private final Label instructionsLabel = new Label("Create a To-Do list by adding a task.");
     private final TaskInventory taskInventory = new TaskInventory();
-    private final double SCREEN_HEIGHT = Screen.getPrimary().getBounds().getHeight();
-    private final double SCREEN_WIDTH = Screen.getPrimary().getBounds().getWidth();
     private final TabPane puzzlePlannerAppTabPane = new TabPane();
 
     @Override
     public void start(Stage primaryStage) {
         primaryStage.setScene(new Scene(createUI()));
-        primaryStage.setHeight(SCREEN_HEIGHT / 1.3);
-        primaryStage.setWidth((SCREEN_WIDTH) / 4.0);
-        primaryStage.setX((SCREEN_WIDTH) / 4);
-        primaryStage.setY(SCREEN_HEIGHT / 10);
         primaryStage.show();
         primaryStage.setOnCloseRequest(e -> Platform.exit());
     }
 
     private Parent createUI() {
+        taskAddButton.setDefaultButton(true);
+
         taskAddButton.setOnAction((event) -> {
             String userInput = taskInputField.getText();
             taskInventory.addTask(userInput);
@@ -57,6 +55,11 @@ public class PuzzlePlannerApplication extends Application {
                 taskAddButton,
                 taskListLabel
         );
+
+        return setTabs(vbox);
+    }
+
+    private TabPane setTabs(VBox vbox) { //refactor
         Tab taskTab = new Tab("Tasks", vbox);
         puzzlePlannerAppTabPane.setTabClosingPolicy(TabPane.TabClosingPolicy.UNAVAILABLE);
         puzzlePlannerAppTabPane.getTabs().add(taskTab);

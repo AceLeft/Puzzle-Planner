@@ -5,23 +5,26 @@ import org.junit.jupiter.api.Test;
 
 public class TestTaskInventory {
     TaskInventory taskInventory = new TaskInventory();
+
     @Test
-    public void testAddTask(){
+    public void testAddTask() {
         taskInventory.addTask("stretch");
         taskInventory.addTask("dishes");
-        Assertions.assertEquals("stretch",taskInventory.getTaskAt(0));
-        Assertions.assertEquals("dishes",taskInventory.getTaskAt(1));
+        Assertions.assertEquals("stretch", taskInventory.getTaskAt(0));
+        Assertions.assertEquals("dishes", taskInventory.getTaskAt(1));
 
     }
+
     @Test
-    public void testRemoveTask(){
+    public void testRemoveTask() {
         taskInventory.addTask("stretch");
         taskInventory.addTask("dishes");
         taskInventory.removeTask("stretch");
         Assertions.assertNotEquals("stretch", taskInventory.getTaskAt(0));
     }
+
     @Test
-    public void testGetRandom(){
+    public void testGetRandom() {
         taskInventory.addTask("stretch");
         taskInventory.addTask("dishes");
         taskInventory.addTask("cook");

@@ -9,14 +9,14 @@ public class TestWordGuesserGame {
     WordGuesserGame wordGuesserGame = new WordGuesserGame("egg");
 
     @ParameterizedTest
-    @CsvSource({"keg, -*g","egg, egg","top, ---","gop, *--"})
-    public void testMakeClueFromGuess(String guess, String expected){
+    @CsvSource({"keg, -*g", "egg, egg", "top, ---", "gop, *--"})
+    public void testMakeClueFromGuess(String guess, String expected) {
         String result = wordGuesserGame.makeClueFromGuess(guess);
         Assertions.assertEquals(expected, result);
     }
 
     @Test
-    public void testCreateNewTemplateWord(){
+    public void testCreateNewTemplateWord() {
         wordGuesserGame.createNewTemplateWord();
         Assertions.assertNotEquals("egg", wordGuesserGame.getTemplateWord());
         System.out.println("Word: " + wordGuesserGame.getTemplateWord());

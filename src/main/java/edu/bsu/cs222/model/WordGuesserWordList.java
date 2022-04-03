@@ -89,11 +89,11 @@ public class WordGuesserWordList {
             "tycoon", "laurel", "insert", "fleece", "rebate", "lagoon", "trance", "tremor", "satire", "resale",
             "lotion", "genome", "celery"));
 
-    public String getWordAt(int index){
+    public String getWordAt(int index) {
         return wordBank.get(index);
     }
 
-    public int getWordListLength(){
+    public int getWordListLength() {
         return wordBank.size();
     }
 

@@ -19,16 +19,15 @@ public class TaskInventory {
     public String getRandom() {
         int randomNumber = (int) (Math.random() * taskList.size());
         String task;
-        try{
+        try {
             task = taskList.get(randomNumber);
-        }
-        catch(IndexOutOfBoundsException e){
+        } catch (IndexOutOfBoundsException e) {
             task = "You have no tasks in your task list.";
         }
         return task;
     }
 
-    public String getTaskAt(int index){
+    public String getTaskAt(int index) {
         return taskList.get(index);
     }
 
