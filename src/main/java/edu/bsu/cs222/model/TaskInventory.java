@@ -34,6 +34,7 @@ public class TaskInventory {
 
     public void removeTask(String task) throws IOException {
         taskList.remove(task);
+        closePrintWriter();
         tasksFile = new PrintWriter(new FileWriter("src/main/resources/tasks.txt"));
         for(String otherTask : taskList){
             tasksFile.println(otherTask);
