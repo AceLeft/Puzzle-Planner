@@ -3,6 +3,8 @@ package edu.bsu.cs222.view;
 import edu.bsu.cs222.model.TaskInventory;
 import javafx.application.Application;
 import javafx.application.Platform;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
@@ -10,6 +12,7 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
 
+import java.util.ArrayList;
 
 public class PuzzlePlannerApplication extends Application {
     private final TextField taskInputField = new TextField();
@@ -20,6 +23,7 @@ public class PuzzlePlannerApplication extends Application {
     private final double SCREEN_HEIGHT = Screen.getPrimary().getBounds().getHeight();
     private final double SCREEN_WIDTH = Screen.getPrimary().getBounds().getWidth();
     private final TabPane puzzlePlannerAppTabPane = new TabPane();
+    private final Button removeButton = new Button("Delete");
 
     @Override
     public void start(Stage primaryStage) {
@@ -34,16 +38,27 @@ public class PuzzlePlannerApplication extends Application {
 
     private Parent createUI() {
         VBox vbox = new VBox();
+        ListView<String> taskOutputTable = new ListView<>();
         taskAddButton.setOnAction((event) -> {
             String userInput = taskInputField.getText();
             taskInventory.addTask(userInput);
-            Label nextLabel = new Label(userInput);
-            Button removeNextButton = new Button("Delete");
-            removeNextButton.setOnAction((event2 -> {
-                vbox.getChildren().remove(nextLabel);
-                vbox.getChildren().remove(removeNextButton);
+            ArrayList<String> taskOutput = new ArrayList();
+            for (String task : taskInventory.getTaskList()) {
+                taskOutput.add(task);
+            }
+            ObservableList<String> taskOutputList = FXCollections.observableArrayList(taskOutput);
+            taskOutputTable.setItems(taskOutputList);
+            taskOutputTable.getSelectionModel().getSelectedItem();
+            removeButton.setOnAction((event2 -> {
+                try{
+                    taskOutputList.remove(taskOutputTable.getSelectionModel().getSelectedItem());
+                    taskInventory.getTaskList().remove(taskOutputTable.getSelectionModel().getSelectedItem());
+                }
+                catch(Exception e){
+                    //work in progress
+                }
+
             }));
-            vbox.getChildren().addAll(nextLabel, removeNextButton);
             taskInputField.clear();
         });
 
@@ -51,7 +66,9 @@ public class PuzzlePlannerApplication extends Application {
                 instructionsLabel,
                 taskInputField,
                 taskAddButton,
-                taskListLabel
+                taskListLabel,
+                taskOutputTable,
+                removeButton
         );
         Tab taskTab = new Tab("Tasks", vbox);
         puzzlePlannerAppTabPane.setTabClosingPolicy(TabPane.TabClosingPolicy.UNAVAILABLE);

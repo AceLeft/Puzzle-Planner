@@ -31,4 +31,9 @@ public class TaskInventory {
     public String getTaskAt(int index){
         return taskList.get(index);
     }
+
+    public ArrayList<String> getTaskList() {
+        return taskList;
+    }
 }
+
