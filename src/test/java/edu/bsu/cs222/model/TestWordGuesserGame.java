@@ -19,8 +19,5 @@ public class TestWordGuesserGame {
     public void testCreateNewTemplateWord() {
         wordGuesserGame.createNewTemplateWord();
         Assertions.assertNotEquals("egg", wordGuesserGame.getTemplateWord());
-        System.out.println("Word: " + wordGuesserGame.getTemplateWord());
-        wordGuesserGame = new WordGuesserGame();
-        Assertions.assertNotEquals("egg", wordGuesserGame.getTemplateWord());
     }
 }
