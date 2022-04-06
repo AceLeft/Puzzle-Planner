@@ -9,7 +9,7 @@ import javafx.scene.control.*;
 import javafx.scene.input.KeyCode;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
-
+import java.io.IOException;
 import java.awt.event.KeyEvent;
 
 
@@ -22,11 +22,17 @@ public class PuzzlePlannerApplication extends Application {
     private final TaskInventory taskInventory = new TaskInventory();
     private final TabPane puzzlePlannerAppTabPane = new TabPane();
 
+    public PuzzlePlannerApplication() throws IOException {
+    }
+
     @Override
     public void start(Stage primaryStage) {
         primaryStage.setScene(new Scene(createUI()));
         primaryStage.show();
-        primaryStage.setOnCloseRequest(e -> Platform.exit());
+        primaryStage.setOnCloseRequest(e -> {
+            taskInventory.closePrintWriter();
+            Platform.exit();
+        });
     }
 
     private Parent createUI() {
@@ -35,11 +41,7 @@ public class PuzzlePlannerApplication extends Application {
         taskAddButton.setOnAction((event) -> {
             String userInput = taskInputField.getText();
             taskInventory.addTask(userInput);
-            StringBuilder finalTaskListOutput = new StringBuilder("Tasks:\n");
-            for (String task : taskInventory.getTaskList()) {
-                finalTaskListOutput.append(task).append("\n");
-            }
-            Platform.runLater(() -> taskListLabel.setText(finalTaskListOutput.toString()));
+            createTaskLabelAndDeleteButton(userInput, vbox);
             taskInputField.clear();
         });
         VBox vbox = new VBox();
@@ -55,6 +57,9 @@ public class PuzzlePlannerApplication extends Application {
                 taskAddButton,
                 taskListLabel
         );
+        for (String task : taskInventory.getTaskList()) {
+            createTaskLabelAndDeleteButton(task, vbox);
+        }
 
         return setTabs(vbox);
     }
@@ -67,5 +72,20 @@ public class PuzzlePlannerApplication extends Application {
         puzzlePlannerAppTabPane.getTabs().add(wordGuesserGameDisplay.makeWordGuesserGameTab());
         puzzlePlannerAppTabPane.setStyle("-fx-padding: 5px");
         return puzzlePlannerAppTabPane;
+    }
+
+    private void createTaskLabelAndDeleteButton(String userInput, VBox vbox) {
+        Label nextLabel = new Label(userInput);
+        Button removeNextButton = new Button("Delete");
+        removeNextButton.setOnAction((event2 -> {
+            try {
+                taskInventory.removeTask(nextLabel.getText());
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            vbox.getChildren().remove(nextLabel);
+            vbox.getChildren().remove(removeNextButton);
+        }));
+        vbox.getChildren().addAll(nextLabel, removeNextButton);
     }
 }
