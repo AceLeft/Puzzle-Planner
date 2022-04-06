@@ -8,11 +8,23 @@ public class TaskInventory {
 
     private final ArrayList<String> taskList = new ArrayList<>();
     private PrintWriter tasksFile;
+    private final String fileLocation;
 
     public TaskInventory() throws IOException {
-        tasksFile = new PrintWriter(new FileWriter("src/main/resources/tasks.txt",true));
-        Scanner taskScanner = new Scanner(new File("src/main/resources/tasks.txt"));
-        while(taskScanner.hasNext()){
+        fileLocation = "src/main/resources/tasks.txt";
+        tasksFile = new PrintWriter(new FileWriter(fileLocation, true));
+        Scanner taskScanner = new Scanner(new File(fileLocation));
+        while (taskScanner.hasNext()) {
+            taskList.add(taskScanner.nextLine());
+        }
+        taskScanner.close();
+    }
+
+    public TaskInventory(String fileLocation) throws IOException {
+        this.fileLocation = fileLocation;
+        tasksFile = new PrintWriter(new FileWriter(this.fileLocation, true));
+        Scanner taskScanner = new Scanner(new File(this.fileLocation));
+        while (taskScanner.hasNext()) {
             taskList.add(taskScanner.nextLine());
         }
         taskScanner.close();
@@ -28,19 +40,25 @@ public class TaskInventory {
     public void removeTask(String task) throws IOException {
         taskList.remove(task);
         closePrintWriter();
-        tasksFile = new PrintWriter(new FileWriter("src/main/resources/tasks.txt"));
-        for(String otherTask : taskList){
+        tasksFile = new PrintWriter(new FileWriter(fileLocation));
+        for (String otherTask : taskList) {
             tasksFile.println(otherTask);
         }
+    }
+
+    public void removeAllTasks() throws IOException {
+        closePrintWriter();
+        tasksFile = new PrintWriter(new FileWriter(fileLocation));
+        taskList.clear();
+
     }
 
     public String getRandom() {
         int randomNumber = (int) (Math.random() * taskList.size());
         String task;
-        try{
+        try {
             task = taskList.get(randomNumber);
-        }
-        catch(IndexOutOfBoundsException e){
+        } catch (IndexOutOfBoundsException e) {
             task = "You have no tasks in your task list.";
         }
         return task;
