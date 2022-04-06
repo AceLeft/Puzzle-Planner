@@ -13,6 +13,8 @@ import javafx.stage.Screen;
 import javafx.stage.Stage;
 
 import java.util.ArrayList;
+import java.io.IOException;
+
 
 public class PuzzlePlannerApplication extends Application {
     private final TextField taskInputField = new TextField();
@@ -25,6 +27,9 @@ public class PuzzlePlannerApplication extends Application {
     private final TabPane puzzlePlannerAppTabPane = new TabPane();
     private final Button removeButton = new Button("Delete");
 
+    public PuzzlePlannerApplication() throws IOException {
+    }
+
     @Override
     public void start(Stage primaryStage) {
         primaryStage.setScene(new Scene(createUI()));
@@ -33,7 +38,10 @@ public class PuzzlePlannerApplication extends Application {
         primaryStage.setX((SCREEN_WIDTH) / 4);
         primaryStage.setY(SCREEN_HEIGHT / 10);
         primaryStage.show();
-        primaryStage.setOnCloseRequest(e -> Platform.exit());
+        primaryStage.setOnCloseRequest(e -> {
+            taskInventory.closePrintWriter();
+            Platform.exit();
+        });
     }
 
     private Parent createUI() {

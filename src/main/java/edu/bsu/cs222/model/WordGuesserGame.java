@@ -47,8 +47,8 @@ public class WordGuesserGame{
                 clueLetters[j] = "-";
             }
             j++;
-
         }
+        
         StringBuilder clue = new StringBuilder();
         for( String key : clueLetters){
             clue.append(key);
