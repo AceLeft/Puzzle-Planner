@@ -14,8 +14,7 @@ import javafx.stage.Stage;
 public class PuzzlePlannerApplication extends Application {
     private final TextField taskInputField = new TextField();
     private final Button taskAddButton = new Button("Add");
-    private final Button taskRemoveButton = new Button("X");
-    private final Label taskListLabel = new Label("");
+    private final Label taskListLabel = new Label("Tasks:");
     private final Label instructionsLabel = new Label("Create a To-Do list by adding a task.");
     private final TaskInventory taskInventory = new TaskInventory();
     private final double SCREEN_HEIGHT = Screen.getPrimary().getBounds().getHeight();
@@ -34,22 +33,19 @@ public class PuzzlePlannerApplication extends Application {
     }
 
     private Parent createUI() {
+        VBox vbox = new VBox();
         taskAddButton.setOnAction((event) -> {
             String userInput = taskInputField.getText();
             taskInventory.addTask(userInput);
-            StringBuilder finalTaskListOutput = new StringBuilder("Tasks:\n");
-            for (String task : taskInventory.getTaskList()) {
-                finalTaskListOutput.append(task).append("\n");
-            }
-            Platform.runLater(() -> taskListLabel.setText(finalTaskListOutput.toString()));
+            Label nextLabel = new Label(userInput);
+            Button removeNextButton = new Button("Delete");
+            removeNextButton.setOnAction((event2 -> {
+                vbox.getChildren().remove(nextLabel);
+                vbox.getChildren().remove(removeNextButton);
+            }));
+            vbox.getChildren().addAll(nextLabel, removeNextButton);
             taskInputField.clear();
         });
-        VBox vbox = new VBox();
-        taskRemoveButton.setOnAction((event -> {
-            vbox.getChildren().remove(taskListLabel);
-            vbox.getChildren().remove(taskRemoveButton);
-        }));
-
 
         vbox.getChildren().addAll(
                 instructionsLabel,
