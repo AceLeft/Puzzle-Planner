@@ -79,7 +79,7 @@ public class PuzzlePlannerApplication extends Application {
         taskListView.setItems(taskOutputList);
     }
 
-    private TabPane setTabs(VBox vbox) { //refactor
+    private TabPane setTabs(VBox vbox) { //TODO refactor
         Tab taskTab = new Tab("Tasks", vbox);
         puzzlePlannerAppTabPane.setTabClosingPolicy(TabPane.TabClosingPolicy.UNAVAILABLE);
         puzzlePlannerAppTabPane.getTabs().add(taskTab);
