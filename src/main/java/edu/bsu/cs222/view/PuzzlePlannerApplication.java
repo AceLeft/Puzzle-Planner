@@ -23,7 +23,7 @@ public class PuzzlePlannerApplication extends Application {
     private final TaskInventory taskInventory = new TaskInventory();
     private final TabPane puzzlePlannerAppTabPane = new TabPane();
     private final Button removeButton = new Button("Delete");
-    private final ListView<String> taskOutputTable = new ListView<>();
+    private final ListView<String> taskListView = new ListView<>();
 
     public PuzzlePlannerApplication() throws IOException {
     }
@@ -40,7 +40,6 @@ public class PuzzlePlannerApplication extends Application {
 
     private Parent createUI() {
         taskAddButton.setDefaultButton(true);
-        //TODO: rename taskOutputTable
         VBox vbox = new VBox();
 
         setListViewItemsToTaskList();
@@ -52,7 +51,7 @@ public class PuzzlePlannerApplication extends Application {
         });
         removeButton.setOnAction((event2 -> {
             try {
-                taskInventory.removeTask(taskOutputTable.getSelectionModel().getSelectedItem());
+                taskInventory.removeTask(taskListView.getSelectionModel().getSelectedItem());
             } catch (IOException e) {
                 //TODO: i dunno
             }
@@ -64,7 +63,7 @@ public class PuzzlePlannerApplication extends Application {
                 taskInputField,
                 taskAddButton,
                 taskListLabel,
-                taskOutputTable,
+                taskListView,
                 removeButton
         );
 
@@ -73,7 +72,7 @@ public class PuzzlePlannerApplication extends Application {
 
     private void setListViewItemsToTaskList() {
         ObservableList<String> taskOutputList = FXCollections.observableArrayList(taskInventory.getTaskList());
-        taskOutputTable.setItems(taskOutputList);
+        taskListView.setItems(taskOutputList);
     }
 
     private TabPane setTabs(VBox vbox) { //refactor
