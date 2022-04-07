@@ -23,36 +23,53 @@ public class WordGuesserGameDisplay {
     private final WordGuesserGame wordGuesser = new WordGuesserGame();
     private final StringBuilder previousGuesses = new StringBuilder();
     private final TaskInventory taskInventory;
+    private final int wordLength = wordGuesser.getTemplateWord().length();
 
     public WordGuesserGameDisplay(TaskInventory taskInventory) {
         this.taskInventory = taskInventory;
     }
 
-    //TODO: rename
-    private void formatGuessButton() {
+    private void processGuess() {
         String guess = guessInputField.getText();
         String key = wordGuesser.makeClueFromGuess(guess);
-        StringBuilder keyReformatted = new StringBuilder();
-        for (char character : key.toCharArray()) {
-            keyReformatted.append(character).append(" ");
-        }
-        if (guessInputField.getText().length() < 7 && !guessInputField.getText().equals("")) {
-            previousGuesses.append(guess).append("\t\t").append(keyReformatted).append("\n");
-        }
-        Platform.runLater(() -> guessesLabel.setText(previousGuesses.toString()));
+        StringBuilder reformattedKey = formatKey(key);
+
+        showGuessAndKey(guess, reformattedKey);
         if (wordGuesser.isTemplate(guess)) {
             createPuzzleDonePopUp();
         }
+
         guessInputField.clear();
     }
 
+    private void showGuessAndKey(String guess, StringBuilder reformattedKey) {
+        if (guessInputField.getText().length() < wordLength && !guessInputField.getText().equals("")) {
+            previousGuesses.append(guess).append("\t\t").append(reformattedKey).append("\n");
+        }
+        Platform.runLater(() -> guessesLabel.setText(previousGuesses.toString()));
+    }
+
+    private StringBuilder formatKey(String key) {
+        StringBuilder reformattedKey = new StringBuilder();
+        for (char character : key.toCharArray()) {
+            reformattedKey.append(character).append(" ");
+        }
+        return reformattedKey;
+    }
+
     public Tab makeWordGuesserGameTab() {
-        guessButton.setOnAction((event) -> formatGuessButton());
+        VBox vbox = createWordGuesserVbox();
+        return new Tab("Word Guesser", vbox);
+    }
+
+    private VBox createWordGuesserVbox() {
+        guessButton.setOnAction((event) -> processGuess());
         guessInputField.setOnKeyPressed(event -> {
             if (event.getCode() == KeyCode.ENTER) {
-                formatGuessButton();
+                processGuess();
             }
         });
+
         instructionsLabel.setText("""
                 Guess the 6 letter word that I'm thinking of.
                  When you input a word, you will receive a clue.
@@ -65,7 +82,7 @@ public class WordGuesserGameDisplay {
                 guessButton,
                 guessesLabel
         );
-        return new Tab("Word Guesser", vbox);
+        return vbox;
     }
 
     public void createPuzzleDonePopUp() {
