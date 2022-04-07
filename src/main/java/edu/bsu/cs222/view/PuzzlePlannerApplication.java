@@ -49,11 +49,11 @@ public class PuzzlePlannerApplication extends Application {
             setListViewItemsToTaskList();
             taskInputField.clear();
         });
-        removeButton.setOnAction((event2 -> {
+        removeButton.setOnAction((pressRemove -> {
             try {
-                taskInventory.removeTask(taskListView.getSelectionModel().getSelectedItem());
+                taskInventory.removeTask(getTaskListViewSelectedItem());
             } catch (IOException e) {
-                //TODO: i dunno
+                e.printStackTrace();
             }
             setListViewItemsToTaskList();
         }));
@@ -68,6 +68,10 @@ public class PuzzlePlannerApplication extends Application {
         );
 
         return setTabs(vbox);
+    }
+
+    private String getTaskListViewSelectedItem() {
+        return taskListView.getSelectionModel().getSelectedItem();
     }
 
     private void setListViewItemsToTaskList() {
