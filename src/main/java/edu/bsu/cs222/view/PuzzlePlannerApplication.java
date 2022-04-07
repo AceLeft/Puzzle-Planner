@@ -8,13 +8,11 @@ import javafx.collections.ObservableList;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
-import javafx.scene.input.KeyCode;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
-import java.util.ArrayList;
 import java.io.IOException;
-import java.awt.event.KeyEvent;
+
 
 
 public class PuzzlePlannerApplication extends Application {
@@ -25,6 +23,7 @@ public class PuzzlePlannerApplication extends Application {
     private final TaskInventory taskInventory = new TaskInventory();
     private final TabPane puzzlePlannerAppTabPane = new TabPane();
     private final Button removeButton = new Button("Delete");
+    private final ListView<String> taskOutputTable = new ListView<>();
 
     public PuzzlePlannerApplication() throws IOException {
     }
@@ -41,31 +40,24 @@ public class PuzzlePlannerApplication extends Application {
 
     private Parent createUI() {
         taskAddButton.setDefaultButton(true);
-
+        //TODO: rename taskOutputTable
         VBox vbox = new VBox();
-        ListView<String> taskOutputTable = new ListView<>();
+
+        setListViewItemsToTaskList();
         taskAddButton.setOnAction((event) -> {
             String userInput = taskInputField.getText();
             taskInventory.addTask(userInput);
-            ArrayList<String> taskOutput = new ArrayList();
-            for (String task : taskInventory.getTaskList()) {
-                taskOutput.add(task);
-            }
-            ObservableList<String> taskOutputList = FXCollections.observableArrayList(taskOutput);
-            taskOutputTable.setItems(taskOutputList);
-            taskOutputTable.getSelectionModel().getSelectedItem();
-            removeButton.setOnAction((event2 -> {
-                try{
-                    taskOutputList.remove(taskOutputTable.getSelectionModel().getSelectedItem());
-                    taskInventory.getTaskList().remove(taskOutputTable.getSelectionModel().getSelectedItem());
-                }
-                catch(Exception e){
-                    //work in progress
-                }
-
-            }));
+            setListViewItemsToTaskList();
             taskInputField.clear();
         });
+        removeButton.setOnAction((event2 -> {
+            try {
+                taskInventory.removeTask(taskOutputTable.getSelectionModel().getSelectedItem());
+            } catch (IOException e) {
+                //TODO: i dunno
+            }
+            setListViewItemsToTaskList();
+        }));
 
         vbox.getChildren().addAll(
                 instructionsLabel,
@@ -77,6 +69,11 @@ public class PuzzlePlannerApplication extends Application {
         );
 
         return setTabs(vbox);
+    }
+
+    private void setListViewItemsToTaskList() {
+        ObservableList<String> taskOutputList = FXCollections.observableArrayList(taskInventory.getTaskList());
+        taskOutputTable.setItems(taskOutputList);
     }
 
     private TabPane setTabs(VBox vbox) { //refactor

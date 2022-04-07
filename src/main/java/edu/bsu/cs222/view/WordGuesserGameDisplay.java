@@ -28,6 +28,7 @@ public class WordGuesserGameDisplay {
         this.taskInventory = taskInventory;
     }
 
+    //TODO: rename
     private void formatGuessButton() {
         String guess = guessInputField.getText();
         String key = wordGuesser.makeClueFromGuess(guess);
