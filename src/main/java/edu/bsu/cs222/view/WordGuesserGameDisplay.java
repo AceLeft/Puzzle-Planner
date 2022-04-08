@@ -14,7 +14,6 @@ import javafx.scene.text.Font;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
-
 public class WordGuesserGameDisplay {
     private final TextField guessInputField = new TextField();
     private final Button guessButton = new Button("Guess!");
@@ -27,33 +26,6 @@ public class WordGuesserGameDisplay {
 
     public WordGuesserGameDisplay(TaskInventory taskInventory) {
         this.taskInventory = taskInventory;
-    }
-
-    private void processGuess() {
-        String guess = guessInputField.getText();
-        String key = wordGuesser.makeClueFromGuess(guess);
-        StringBuilder reformattedKey = formatKey(key);
-        showGuessAndKey(guess, reformattedKey);
-        Platform.runLater(() -> guessesLabel.setText(previousGuesses.toString()));
-        if (wordGuesser.matchesTemplate(guess)) {
-            createPuzzleDonePopUp();
-        }
-
-        guessInputField.clear();
-    }
-
-    private void showGuessAndKey(String guess, StringBuilder reformattedKey) {
-        if (guessInputField.getText().length() <= wordLength && !guessInputField.getText().equals("")) {
-            previousGuesses.append(guess).append("\t\t").append(reformattedKey).append("\n");
-        }
-    }
-
-    private StringBuilder formatKey(String key) {
-        StringBuilder reformattedKey = new StringBuilder();
-        for (char character : key.toCharArray()) {
-            reformattedKey.append(character).append(" ");
-        }
-        return reformattedKey;
     }
 
     public Tab makeWordGuesserGameTab() {
@@ -84,15 +56,45 @@ public class WordGuesserGameDisplay {
         return vbox;
     }
 
+    private void processGuess() {
+        String guess = guessInputField.getText();
+        String key = wordGuesser.makeClueFromGuess(guess);
+        StringBuilder reformattedKey = formatKey(key);
+        showGuessAndKey(guess, reformattedKey);
+        if (wordGuesser.matchesTemplate(guess)) {
+            createPuzzleDonePopUp();
+        }
+        guessInputField.clear();
+    }
+
+    private StringBuilder formatKey(String key) {
+        StringBuilder reformattedKey = new StringBuilder();
+        for (char character : key.toCharArray()) {
+            reformattedKey.append(character).append(" ");
+        }
+        return reformattedKey;
+    }
+
+    private void showGuessAndKey(String guess, StringBuilder reformattedKey) {
+        boolean guessInputFieldEmpty = guessInputField.getText().equals("");
+        if (guessInputField.getText().length() <= wordLength && !guessInputFieldEmpty) {
+            previousGuesses.append(guess).append("\t\t").append(reformattedKey).append("\n");
+        }
+        Platform.runLater(() -> guessesLabel.setText(previousGuesses.toString()));
+    }
+
     public void createPuzzleDonePopUp() {
         Stage dialogStage = new Stage();
         dialogStage.initModality(Modality.APPLICATION_MODAL);
         Label taskExitLabel = new Label("Close the window when you're done.");
         Label taskCompleteLabel = new Label("You won! Complete this task to play again: \n" + taskInventory.getRandom());
-        taskCompleteLabel.setFont(Font.font("Helvetica", 40));
-        taskExitLabel.setFont(Font.font(30));
+        int taskCompleteFontSize = 40;
+        int taskExitFontSize = 30;
+        taskCompleteLabel.setFont(Font.font("Helvetica", taskCompleteFontSize));
+        taskExitLabel.setFont(Font.font(taskExitFontSize));
         VBox dialogBox = new VBox();
-        dialogBox.setStyle("-fx-padding:5px");
+        String dialogBoxStyle = "-fx-padding:5px";
+        dialogBox.setStyle(dialogBoxStyle);
         dialogBox.autosize();
         dialogBox.getChildren().addAll(
                 taskCompleteLabel,
