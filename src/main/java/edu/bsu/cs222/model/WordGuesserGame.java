@@ -25,7 +25,7 @@ public class WordGuesserGame {
         return templateWord;
     }
 
-    public boolean isTemplate(String guess) {
+    public boolean matchesTemplate(String guess) {
         return guess.equals(templateWord);
     }
 
@@ -39,6 +39,7 @@ public class WordGuesserGame {
     public String makeClueFromGuess(String guess) {
         guess = guess.toLowerCase();
         if (guess.length() != templateWord.length()) {
+            //if guess is not correct length, do not return a clue
             return "";
         }
         templateWordLetters = makeArrayListOfLetters(templateWord);
@@ -65,7 +66,7 @@ public class WordGuesserGame {
             curTemplateWordLetter = templateWordLetters.get(i);
             if (curTemplateWordLetter.equals(curGuessLetter)) {
                 clueLetters[i] = curGuessLetter;
-                //"remove" the letter so it cannot be checked again
+                //"remove" the letter, so it cannot be checked again
                 templateWordLetters.set(i, "");
                 guessLetters.set(i, "");
             }
@@ -75,10 +76,10 @@ public class WordGuesserGame {
     private void findIncorrectAndSemiCorrectLetters(String[] clueLetters) {
         int j = 0;
         int index;
-        boolean letterPreviouslyChecked;
+        boolean letterCheckedPreviously;
         for (String letter : guessLetters) {
-            letterPreviouslyChecked = letter.equals("");
-            if (templateWordLetters.contains(letter) && !letterPreviouslyChecked) {
+            letterCheckedPreviously = letter.equals("");
+            if (templateWordLetters.contains(letter) && !letterCheckedPreviously) {
                 clueLetters[j] = "*";
                 index = templateWordLetters.indexOf(letter);
                 templateWordLetters.set(index, "");
@@ -96,6 +97,4 @@ public class WordGuesserGame {
         }
         return clue.toString();
     }
-
-
 }

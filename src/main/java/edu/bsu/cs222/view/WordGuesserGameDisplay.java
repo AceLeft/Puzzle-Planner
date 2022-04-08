@@ -35,7 +35,7 @@ public class WordGuesserGameDisplay {
         StringBuilder reformattedKey = formatKey(key);
         showGuessAndKey(guess, reformattedKey);
         Platform.runLater(() -> guessesLabel.setText(previousGuesses.toString()));
-        if (wordGuesser.isTemplate(guess)) {
+        if (wordGuesser.matchesTemplate(guess)) {
             createPuzzleDonePopUp();
         }
 
