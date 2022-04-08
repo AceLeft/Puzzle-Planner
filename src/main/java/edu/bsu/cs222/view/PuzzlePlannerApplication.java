@@ -84,7 +84,8 @@ public class PuzzlePlannerApplication extends Application {
         puzzlePlannerAppTabPane.setTabClosingPolicy(TabPane.TabClosingPolicy.UNAVAILABLE);
         puzzlePlannerAppTabPane.getTabs().add(taskTab);
         puzzlePlannerAppTabPane.getTabs().add(wordGuesserGameTab);
-        puzzlePlannerAppTabPane.setStyle("-fx-padding: 5px");
+        String puzzlePlannerAppTabPaneStyle = "-fx-padding: 5px";
+        puzzlePlannerAppTabPane.setStyle(puzzlePlannerAppTabPaneStyle);
         return puzzlePlannerAppTabPane;
     }
 }
