@@ -22,11 +22,15 @@ public class WordGuesserGame {
         ArrayList<String> templateLetters = new ArrayList<>();
         ArrayList<String> guessLetters = new ArrayList<>();
         String[] clueLetters = new String[templateWord.length()];
+        //initlize templateLetters and guessLetters
         for (int i = 0; i < templateWord.length(); i++) {
-            templateLetters.add(String.valueOf(templateWord.charAt(i)));
-            guessLetters.add(String.valueOf(guess.charAt(i)));
+            String templateWordCharacter = String.valueOf(templateWord.charAt(i));
+            String guessCharacter = String.valueOf(guess.charAt(i));
+            templateLetters.add(templateWordCharacter);
+            guessLetters.add(guessCharacter);
         }
 
+        //go through all correct letters
         for (int i = 0; i < templateWord.length(); i++) {
             char character = guess.charAt(i);
             if (templateWord.charAt(i) == character) {
@@ -36,6 +40,7 @@ public class WordGuesserGame {
             }
         }
 
+        //go through all incorrect and semicorrect letters
         int j = 0;
         for (String string : guessLetters) {
             if (templateLetters.contains(string) && !string.equals("")) {
@@ -47,7 +52,7 @@ public class WordGuesserGame {
             }
             j++;
         }
-        
+        //final format to stringbuilder
         StringBuilder clue = new StringBuilder();
         for (String key : clueLetters) {
             clue.append(key);
