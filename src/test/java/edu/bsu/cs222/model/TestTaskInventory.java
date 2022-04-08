@@ -12,20 +12,27 @@ public class TestTaskInventory {
     public TestTaskInventory() throws IOException {
     }
 
-    @Test
-    public void testAddTask() throws IOException {
+    private void clearFileAddTasks() throws IOException {
         taskInventory.removeAllTasks();
         taskInventory.addTask("stretch");
         taskInventory.addTask("dishes");
+    }
+
+    @Test
+    public void testAddTaskFirstItem() throws IOException {
+        clearFileAddTasks();
         Assertions.assertEquals("stretch", taskInventory.getTaskAt(0));
+    }
+
+    @Test
+    public void testAddTaskSecondItem() throws IOException {
+        clearFileAddTasks();
         Assertions.assertEquals("dishes", taskInventory.getTaskAt(1));
     }
 
     @Test
     public void testRemoveTask() throws IOException {
-        taskInventory.removeAllTasks();
-        taskInventory.addTask("stretch");
-        taskInventory.addTask("dishes");
+        clearFileAddTasks();
         taskInventory.removeTask("stretch");
         Assertions.assertNotEquals("stretch", taskInventory.getTaskAt(0));
     }
