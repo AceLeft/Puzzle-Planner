@@ -7,8 +7,7 @@ import java.io.IOException;
 
 public class TestTaskInventory {
     TaskInventory taskInventory = new TaskInventory("src/test/resources/testTasks.txt");
-
-
+    
     public TestTaskInventory() throws IOException {
     }
 
