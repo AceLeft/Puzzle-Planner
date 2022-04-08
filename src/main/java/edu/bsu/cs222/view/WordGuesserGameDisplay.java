@@ -33,8 +33,8 @@ public class WordGuesserGameDisplay {
         String guess = guessInputField.getText();
         String key = wordGuesser.makeClueFromGuess(guess);
         StringBuilder reformattedKey = formatKey(key);
-
         showGuessAndKey(guess, reformattedKey);
+        Platform.runLater(() -> guessesLabel.setText(previousGuesses.toString()));
         if (wordGuesser.isTemplate(guess)) {
             createPuzzleDonePopUp();
         }
@@ -43,10 +43,9 @@ public class WordGuesserGameDisplay {
     }
 
     private void showGuessAndKey(String guess, StringBuilder reformattedKey) {
-        if (guessInputField.getText().length() < wordLength && !guessInputField.getText().equals("")) {
+        if (guessInputField.getText().length() <= wordLength && !guessInputField.getText().equals("")) {
             previousGuesses.append(guess).append("\t\t").append(reformattedKey).append("\n");
         }
-        Platform.runLater(() -> guessesLabel.setText(previousGuesses.toString()));
     }
 
     private StringBuilder formatKey(String key) {
