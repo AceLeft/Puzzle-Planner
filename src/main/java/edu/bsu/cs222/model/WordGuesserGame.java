@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 public class WordGuesserGame {
     private String templateWord;
-    private final WordGuesserWordList wordGuesserWordList = new WordGuesserWordList();
+    private final WordGuesserWordList wordList = new WordGuesserWordList();
     private ArrayList<String> templateWordLetters;
     private ArrayList<String> guessLetters;
 
@@ -17,8 +17,8 @@ public class WordGuesserGame {
     }
 
     public void createNewTemplateWord() {
-        int randomNumber = (int) (Math.random() * wordGuesserWordList.getWordListLength());
-        templateWord = wordGuesserWordList.getWordAt(randomNumber);
+        int randomNumber = (int) (Math.random() * wordList.getWordListLength());
+        templateWord = wordList.getWordAt(randomNumber);
     }
 
     public String getTemplateWord() {
@@ -29,6 +29,13 @@ public class WordGuesserGame {
         return guess.equals(templateWord);
     }
 
+    /*
+    Returns a key representing the relation of letters in the guess
+    with the letters in the template. A "-" means the guess letter
+    is not in the template, a "*" means the guess letter is in the
+    template but not in that spot, and a letter means the guess
+    letter was in the template and in the correct spot.
+     */
     public String makeClueFromGuess(String guess) {
         guess = guess.toLowerCase();
         if (guess.length() != templateWord.length()) {
@@ -58,6 +65,7 @@ public class WordGuesserGame {
             curTemplateWordLetter = templateWordLetters.get(i);
             if (curTemplateWordLetter.equals(curGuessLetter)) {
                 clueLetters[i] = curGuessLetter;
+                //"remove" the letter so it cannot be checked again
                 templateWordLetters.set(i, "");
                 guessLetters.set(i, "");
             }
