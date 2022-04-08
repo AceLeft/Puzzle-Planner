@@ -13,8 +13,6 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 
-
-
 public class PuzzlePlannerApplication extends Application {
     private final TextField taskInputField = new TextField();
     private final Button taskAddButton = new Button("Add");
@@ -41,14 +39,15 @@ public class PuzzlePlannerApplication extends Application {
     private Parent createUI() {
         taskAddButton.setDefaultButton(true);
         VBox vbox = new VBox();
-
         setListViewItemsToTaskList();
+
         taskAddButton.setOnAction((event) -> {
             String userInput = taskInputField.getText();
             taskInventory.addTask(userInput);
             setListViewItemsToTaskList();
             taskInputField.clear();
         });
+
         removeButton.setOnAction((pressRemove -> {
             try {
                 taskInventory.removeTask(getTaskListViewSelectedItem());
@@ -66,7 +65,6 @@ public class PuzzlePlannerApplication extends Application {
                 taskListView,
                 removeButton
         );
-
         return setTabs(vbox);
     }
 
@@ -79,12 +77,13 @@ public class PuzzlePlannerApplication extends Application {
         taskListView.setItems(taskOutputList);
     }
 
-    private TabPane setTabs(VBox vbox) { //TODO refactor
+    private TabPane setTabs(VBox vbox) {
         Tab taskTab = new Tab("Tasks", vbox);
+        WordGuesserGameDisplay wordGuesserGameDisplay = new WordGuesserGameDisplay(taskInventory);
+        Tab wordGuesserGameTab = wordGuesserGameDisplay.makeWordGuesserGameTab();
         puzzlePlannerAppTabPane.setTabClosingPolicy(TabPane.TabClosingPolicy.UNAVAILABLE);
         puzzlePlannerAppTabPane.getTabs().add(taskTab);
-        WordGuesserGameDisplay wordGuesserGameDisplay = new WordGuesserGameDisplay(taskInventory);
-        puzzlePlannerAppTabPane.getTabs().add(wordGuesserGameDisplay.makeWordGuesserGameTab());
+        puzzlePlannerAppTabPane.getTabs().add(wordGuesserGameTab);
         puzzlePlannerAppTabPane.setStyle("-fx-padding: 5px");
         return puzzlePlannerAppTabPane;
     }
