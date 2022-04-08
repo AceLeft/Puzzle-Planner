@@ -5,6 +5,8 @@ import java.util.ArrayList;
 public class WordGuesserGame {
     private String templateWord;
     private final WordGuesserWordList wordGuesserWordList = new WordGuesserWordList();
+    private ArrayList<String> templateWordLetters;
+    private ArrayList<String> guessLetters;
 
     public WordGuesserGame(String word) {
         templateWord = word;
@@ -12,52 +14,6 @@ public class WordGuesserGame {
 
     public WordGuesserGame() {
         createNewTemplateWord();
-    }
-
-    public String makeClueFromGuess(String guess) {
-        guess = guess.toLowerCase();
-        if (guess.length() != templateWord.length()) {
-            return "";
-        }
-        ArrayList<String> templateLetters = new ArrayList<>();
-        ArrayList<String> guessLetters = new ArrayList<>();
-        String[] clueLetters = new String[templateWord.length()];
-        //initlize templateLetters and guessLetters
-        for (int i = 0; i < templateWord.length(); i++) {
-            String templateWordCharacter = String.valueOf(templateWord.charAt(i));
-            String guessCharacter = String.valueOf(guess.charAt(i));
-            templateLetters.add(templateWordCharacter);
-            guessLetters.add(guessCharacter);
-        }
-
-        //go through all correct letters
-        for (int i = 0; i < templateWord.length(); i++) {
-            char character = guess.charAt(i);
-            if (templateWord.charAt(i) == character) {
-                clueLetters[i] = String.valueOf(character);
-                templateLetters.set(i, "");
-                guessLetters.set(i, "");
-            }
-        }
-
-        //go through all incorrect and semicorrect letters
-        int j = 0;
-        for (String string : guessLetters) {
-            if (templateLetters.contains(string) && !string.equals("")) {
-                clueLetters[j] = "*";
-                int index = templateLetters.indexOf(string);
-                templateLetters.set(index, "");
-            } else if (!string.equals("")) {
-                clueLetters[j] = "-";
-            }
-            j++;
-        }
-        //final format to stringbuilder
-        StringBuilder clue = new StringBuilder();
-        for (String key : clueLetters) {
-            clue.append(key);
-        }
-        return clue.toString();
     }
 
     public void createNewTemplateWord() {
@@ -72,4 +28,66 @@ public class WordGuesserGame {
     public boolean isTemplate(String guess) {
         return guess.equals(templateWord);
     }
+
+    public String makeClueFromGuess(String guess) {
+        guess = guess.toLowerCase();
+        if (guess.length() != templateWord.length()) {
+            return "";
+        }
+        templateWordLetters = makeArrayListOfLetters(templateWord);
+        guessLetters = makeArrayListOfLetters(guess);
+        String[] clueLetters = new String[templateWord.length()];
+        findCorrectLetters(clueLetters);
+        findIncorrectAndSemiCorrectLetters(clueLetters);
+        return formatClue(clueLetters);
+    }
+
+    private ArrayList<String> makeArrayListOfLetters(String word) {
+        ArrayList<String> wordLetters = new ArrayList<>();
+        for (int i = 0; i < word.length(); i++) {
+            String wordLetter = String.valueOf(word.charAt(i));
+            wordLetters.add(wordLetter);
+        }
+        return wordLetters;
+    }
+
+    private void findCorrectLetters(String[] clueLetters) {
+        String curGuessLetter, curTemplateWordLetter;
+        for (int i = 0; i < templateWordLetters.size(); i++) {
+            curGuessLetter = guessLetters.get(i);
+            curTemplateWordLetter = templateWordLetters.get(i);
+            if (curTemplateWordLetter.equals(curGuessLetter)) {
+                clueLetters[i] = curGuessLetter;
+                templateWordLetters.set(i, "");
+                guessLetters.set(i, "");
+            }
+        }
+    }
+
+    private void findIncorrectAndSemiCorrectLetters(String[] clueLetters) {
+        int j = 0;
+        int index;
+        boolean letterPreviouslyChecked;
+        for (String letter : guessLetters) {
+            letterPreviouslyChecked = letter.equals("");
+            if (templateWordLetters.contains(letter) && !letterPreviouslyChecked) {
+                clueLetters[j] = "*";
+                index = templateWordLetters.indexOf(letter);
+                templateWordLetters.set(index, "");
+            } else if (!letter.equals("")) {
+                clueLetters[j] = "-";
+            }
+            j++;
+        }
+    }
+
+    private String formatClue(String[] clueLetters) {
+        StringBuilder clue = new StringBuilder();
+        for (String key : clueLetters) {
+            clue.append(key);
+        }
+        return clue.toString();
+    }
+
+
 }
