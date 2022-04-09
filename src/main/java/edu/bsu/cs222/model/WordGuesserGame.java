@@ -32,9 +32,9 @@ public class WordGuesserGame {
     /*
     Returns a key representing the relation of letters in the guess
     with the letters in the template. A "-" means the guess letter
-    is not in the template, a "*" means the guess letter is in the
-    template but not in that spot, and a letter means the guess
-    letter was in the template and in the correct spot.
+    is not in the template (incorrect), a "*" means the guess letter is in the
+    template but not in that spot (semicorrect), and a letter means the guess
+    letter was in the template and in the correct spot (correct).
      */
     public String makeClueFromGuess(String guess) {
         guess = guess.toLowerCase();
