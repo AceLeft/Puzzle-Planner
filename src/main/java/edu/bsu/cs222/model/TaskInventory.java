@@ -30,7 +30,6 @@ public class TaskInventory {
     }
 
     public void addTask(String task) {
-        //prevent adding no tasks
         if (!task.equals("")) {
             taskList.add(task);
             taskFile.println(task);

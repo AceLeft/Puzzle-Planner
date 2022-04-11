@@ -22,7 +22,7 @@ public class PuzzlePlannerApplication extends Application {
     private final TabPane puzzlePlannerAppTabPane = new TabPane();
     private final Button removeButton = new Button("Delete");
     private final ListView<String> taskListView = new ListView<>();
-    private final String WINDOW_PADDING = "5px";
+
 
     public PuzzlePlannerApplication() throws IOException {
     }
@@ -85,7 +85,8 @@ public class PuzzlePlannerApplication extends Application {
         puzzlePlannerAppTabPane.setTabClosingPolicy(TabPane.TabClosingPolicy.UNAVAILABLE);
         puzzlePlannerAppTabPane.getTabs().add(taskTab);
         puzzlePlannerAppTabPane.getTabs().add(wordGuesserGameTab);
-        String puzzlePlannerAppTabPaneStyle = "-fx-padding:"+WINDOW_PADDING;
+        String tabPanePadding = "5px";
+        String puzzlePlannerAppTabPaneStyle = "-fx-padding:" + tabPanePadding;
         puzzlePlannerAppTabPane.setStyle(puzzlePlannerAppTabPaneStyle);
         return puzzlePlannerAppTabPane;
     }

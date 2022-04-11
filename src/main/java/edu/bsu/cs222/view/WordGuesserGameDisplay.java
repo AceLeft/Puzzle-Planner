@@ -93,7 +93,8 @@ public class WordGuesserGameDisplay {
         taskCompleteLabel.setFont(Font.font("Helvetica", taskCompleteFontSize));
         taskExitLabel.setFont(Font.font(taskExitFontSize));
         VBox dialogBox = new VBox();
-        String dialogBoxStyle = "-fx-padding:5px";
+        String popUpPadding = "5px";
+        String dialogBoxStyle = "-fx-padding:"+popUpPadding;
         dialogBox.setStyle(dialogBoxStyle);
         dialogBox.autosize();
         dialogBox.getChildren().addAll(
