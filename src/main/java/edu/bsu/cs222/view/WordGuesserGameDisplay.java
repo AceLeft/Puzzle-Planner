@@ -17,7 +17,7 @@ import javafx.stage.Stage;
 public class WordGuesserGameDisplay {
     private final TextField guessInputField = new TextField();
     private final Button guessButton = new Button("Guess!");
-    private final Label guessesLabel = new Label();
+    private final Label guessesLabel = new Label( "");
     private final Label instructionsLabel = new Label("");
     private final WordGuesserGame wordGuesser = new WordGuesserGame();
     private final StringBuilder previousGuesses = new StringBuilder();

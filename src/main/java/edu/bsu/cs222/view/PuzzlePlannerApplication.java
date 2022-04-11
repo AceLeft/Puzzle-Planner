@@ -22,6 +22,7 @@ public class PuzzlePlannerApplication extends Application {
     private final TabPane puzzlePlannerAppTabPane = new TabPane();
     private final Button removeButton = new Button("Delete");
     private final ListView<String> taskListView = new ListView<>();
+    private final String WINDOW_PADDING = "5px";
 
     public PuzzlePlannerApplication() throws IOException {
     }
@@ -41,7 +42,7 @@ public class PuzzlePlannerApplication extends Application {
         VBox vbox = new VBox();
         setListViewItemsToTaskList();
 
-        taskAddButton.setOnAction((event) -> {
+        taskAddButton.setOnAction((pressAdd) -> {
             String userInput = taskInputField.getText();
             taskInventory.addTask(userInput);
             setListViewItemsToTaskList();
@@ -50,7 +51,7 @@ public class PuzzlePlannerApplication extends Application {
 
         removeButton.setOnAction((pressRemove -> {
             try {
-                taskInventory.removeTask(getTaskListViewSelectedItem());
+                taskInventory.removeTask(getListViewSelectedItem());
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -68,7 +69,7 @@ public class PuzzlePlannerApplication extends Application {
         return setTabs(vbox);
     }
 
-    private String getTaskListViewSelectedItem() {
+    private String getListViewSelectedItem() {
         return taskListView.getSelectionModel().getSelectedItem();
     }
 
@@ -84,7 +85,7 @@ public class PuzzlePlannerApplication extends Application {
         puzzlePlannerAppTabPane.setTabClosingPolicy(TabPane.TabClosingPolicy.UNAVAILABLE);
         puzzlePlannerAppTabPane.getTabs().add(taskTab);
         puzzlePlannerAppTabPane.getTabs().add(wordGuesserGameTab);
-        String puzzlePlannerAppTabPaneStyle = "-fx-padding: 5px";
+        String puzzlePlannerAppTabPaneStyle = "-fx-padding:"+WINDOW_PADDING;
         puzzlePlannerAppTabPane.setStyle(puzzlePlannerAppTabPaneStyle);
         return puzzlePlannerAppTabPane;
     }
