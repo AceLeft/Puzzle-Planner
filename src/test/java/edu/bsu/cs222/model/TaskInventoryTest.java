@@ -5,10 +5,10 @@ import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
 
-public class TestTaskInventory {
-    TaskInventory taskInventory = new TaskInventory("src/test/resources/testTasks.txt");
+public class TaskInventoryTest {
+    private final TaskInventory taskInventory = new TaskInventory("src/test/resources/testTasks.txt");
     
-    public TestTaskInventory() throws IOException {
+    public TaskInventoryTest() throws IOException {
     }
 
     private void clearFileAddTasks() throws IOException {
