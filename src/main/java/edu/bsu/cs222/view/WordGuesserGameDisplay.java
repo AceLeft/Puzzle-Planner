@@ -3,16 +3,12 @@ package edu.bsu.cs222.view;
 import edu.bsu.cs222.model.TaskInventory;
 import edu.bsu.cs222.model.WordGuesserGame;
 import javafx.application.Platform;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
 import javafx.scene.layout.VBox;
-import javafx.scene.text.Font;
-import javafx.stage.Modality;
-import javafx.stage.Stage;
 
 public class WordGuesserGameDisplay {
     private final TextField guessInputField = new TextField();
@@ -55,14 +51,16 @@ public class WordGuesserGameDisplay {
         );
         return vbox;
     }
-
+    //TODO: break down?
     private void processGuess() {
         String guess = guessInputField.getText();
         String key = wordGuesser.makeClueFromGuess(guess);
         StringBuilder reformattedKey = formatKey(key);
         showGuessAndKey(guess, reformattedKey);
         if (wordGuesser.matchesTemplate(guess)) {
-            createPuzzleDonePopUp();
+            new PuzzleDonePopUp(taskInventory.getRandom());
+            wordGuesser.createNewTemplateWord();
+            previousGuesses.setLength(0);
         }
         guessInputField.clear();
     }
@@ -83,29 +81,5 @@ public class WordGuesserGameDisplay {
         Platform.runLater(() -> guessesLabel.setText(previousGuesses.toString()));
     }
 
-    //TODO: put into a class
-    public void createPuzzleDonePopUp() {
-        Stage dialogStage = new Stage();
-        dialogStage.initModality(Modality.APPLICATION_MODAL);
-        Label taskExitLabel = new Label("Close the window when you're done.");
-        Label taskCompleteLabel = new Label("You won! Complete this task to play again: \n" + taskInventory.getRandom());
-        int taskCompleteFontSize = 40;
-        int taskExitFontSize = 30;
-        taskCompleteLabel.setFont(Font.font("Helvetica", taskCompleteFontSize));
-        taskExitLabel.setFont(Font.font(taskExitFontSize));
-        VBox dialogBox = new VBox();
-        String popUpPadding = "5px";
-        String dialogBoxStyle = "-fx-padding:"+popUpPadding;
-        dialogBox.setStyle(dialogBoxStyle);
-        dialogBox.autosize();
-        dialogBox.getChildren().addAll(
-                taskCompleteLabel,
-                taskExitLabel
-        );
-        dialogStage.setScene(new Scene(dialogBox));
-        dialogStage.show();
-        dialogStage.onCloseRequestProperty();
-        wordGuesser.createNewTemplateWord();
-        previousGuesses.setLength(0);
-    }
+
 }
