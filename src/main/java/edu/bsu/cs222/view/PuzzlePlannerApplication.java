@@ -37,6 +37,7 @@ public class PuzzlePlannerApplication extends Application {
         });
     }
 
+    //TODO: break up method
     private Parent createUI() {
         taskAddButton.setDefaultButton(true);
         VBox vbox = new VBox();
@@ -78,6 +79,7 @@ public class PuzzlePlannerApplication extends Application {
         taskListView.setItems(taskOutputList);
     }
 
+    //TODO: break up method
     private TabPane setTabs(VBox vbox) {
         Tab taskTab = new Tab("Tasks", vbox);
         WordGuesserGameDisplay wordGuesserGameDisplay = new WordGuesserGameDisplay(taskInventory);

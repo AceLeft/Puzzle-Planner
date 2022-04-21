@@ -42,15 +42,15 @@ public class WordGuesserGame {
             //if guess is not correct length, do not return a clue
             return "";
         }
-        templateWordLetters = makeArrayListOfLetters(templateWord);
-        guessLetters = makeArrayListOfLetters(guess);
+        templateWordLetters = makeListOfLetters(templateWord);
+        guessLetters = makeListOfLetters(guess);
         String[] clueLetters = new String[templateWord.length()];
         findCorrectLetters(clueLetters);
         findIncorrectAndSemiCorrectLetters(clueLetters);
         return formatClue(clueLetters);
     }
 
-    private ArrayList<String> makeArrayListOfLetters(String word) {
+    private ArrayList<String> makeListOfLetters(String word) {
         ArrayList<String> wordLetters = new ArrayList<>();
         for (int i = 0; i < word.length(); i++) {
             String wordLetter = String.valueOf(word.charAt(i));

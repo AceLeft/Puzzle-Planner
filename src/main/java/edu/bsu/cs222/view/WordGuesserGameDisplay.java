@@ -83,6 +83,7 @@ public class WordGuesserGameDisplay {
         Platform.runLater(() -> guessesLabel.setText(previousGuesses.toString()));
     }
 
+    //TODO: put into a class
     public void createPuzzleDonePopUp() {
         Stage dialogStage = new Stage();
         dialogStage.initModality(Modality.APPLICATION_MODAL);
