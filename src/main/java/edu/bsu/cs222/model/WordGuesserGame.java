@@ -7,8 +7,8 @@ import java.util.List;
 public class WordGuesserGame {
     private String templateWord;
     private final WordGuesserWordList wordList = new WordGuesserWordList();
-    private ArrayList<String> templateWordLetters;
-    private ArrayList<String> guessLetters;
+    private List<String> templateWordLetters;
+    private List<String> guessLetters;
 
     public WordGuesserGame(String word) {
         templateWord = word;
@@ -40,12 +40,12 @@ public class WordGuesserGame {
         templateWordLetters = makeListOfLetters(templateWord);
         guessLetters = makeListOfLetters(guess);
         Hint[] hintValues = new Hint[templateWord.length()];
-        findCorrectLetters(hintValues);
-        findIncorrectAndSemiCorrectLetters(hintValues);
+        findCorrectIndexes(hintValues);
+        findIncorrectAndSemicorrectIndexes(hintValues);
         return Arrays.asList(hintValues);
     }
 
-    private ArrayList<String> makeListOfLetters(String word) {
+    private List<String> makeListOfLetters(String word) {
         ArrayList<String> wordLetters = new ArrayList<>();
         for (int i = 0; i < word.length(); i++) {
             String wordLetter = String.valueOf(word.charAt(i));
@@ -54,13 +54,13 @@ public class WordGuesserGame {
         return wordLetters;
     }
 
-    private void findCorrectLetters(Hint[] clueLetters) {
+    private void findCorrectIndexes(Hint[] hintValues) {
         String curGuessLetter, curTemplateWordLetter;
         for (int i = 0; i < templateWordLetters.size(); i++) {
             curGuessLetter = guessLetters.get(i);
             curTemplateWordLetter = templateWordLetters.get(i);
             if (curTemplateWordLetter.equals(curGuessLetter)) {
-                clueLetters[i] = Hint.CORRECT;
+                hintValues[i] = Hint.CORRECT;
                 //"remove" the letter, so it cannot be checked again
                 templateWordLetters.set(i, "");
                 guessLetters.set(i, "");
@@ -68,18 +68,18 @@ public class WordGuesserGame {
         }
     }
 
-    private void findIncorrectAndSemiCorrectLetters(Hint[] hintLetters) {
+    private void findIncorrectAndSemicorrectIndexes(Hint[] hintValues) {
         int j = 0;
         int index;
         boolean letterCheckedPreviously;
         for (String letter : guessLetters) {
             letterCheckedPreviously = letter.equals("");
             if (templateWordLetters.contains(letter) && !letterCheckedPreviously) {
-                hintLetters[j] = Hint.SEMICORRECT;
+                hintValues[j] = Hint.SEMICORRECT;
                 index = templateWordLetters.indexOf(letter);
                 templateWordLetters.set(index, "");
             } else if (!letter.equals("")) {
-                hintLetters[j] = Hint.INCORRECT;
+                hintValues[j] = Hint.INCORRECT;
             }
             j++;
         }

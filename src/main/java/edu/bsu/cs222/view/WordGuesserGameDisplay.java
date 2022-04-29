@@ -57,9 +57,9 @@ public class WordGuesserGameDisplay {
     //TODO: break down?
     private void processGuess() {
         String guess = guessInputField.getText();
-        List<Hint> key = wordGuesser.makeHintListFromGuess(guess);
-        StringBuilder reformattedKey = formatKey(key, guess);
-        showGuessAndKey(guess, reformattedKey);
+        List<Hint> hintList = wordGuesser.makeHintListFromGuess(guess);
+        StringBuilder hintString = formatHintListForDisplay(hintList, guess);
+        showGuessAndHintString(guess, hintString);
         if (wordGuesser.matchesTemplate(guess)) {
             new PuzzleDonePopUp(taskInventory.getRandom());
             wordGuesser.createNewTemplateWord();
@@ -68,28 +68,28 @@ public class WordGuesserGameDisplay {
         guessInputField.clear();
     }
 
-    private StringBuilder formatKey(List<Hint> key, String guess) {
-        StringBuilder reformattedKey = new StringBuilder();
-        for (int i = 0; i < key.size(); i++) {
-
-            if (key.get(i).equals(Hint.INCORRECT)) {
-                reformattedKey.append('-');
-            } else if (key.get(i).equals(Hint.SEMICORRECT)) {
-                reformattedKey.append('*');
+    private StringBuilder formatHintListForDisplay(List<Hint> hintList, String guess) {
+        StringBuilder hintString = new StringBuilder();
+        String incorrectSymbol = "-";
+        String semicorrectSymbol = "*";
+        //correctSymbol is the correct letter
+        for (int i = 0; i < hintList.size(); i++) {
+            if (hintList.get(i).equals(Hint.INCORRECT)) {
+                hintString.append(incorrectSymbol);
+            } else if (hintList.get(i).equals(Hint.SEMICORRECT)) {
+                hintString.append(semicorrectSymbol);
             } else {
-                reformattedKey.append(guess.charAt(i));
+                hintString.append(guess.charAt(i));
             }
         }
-        return reformattedKey;
+        return hintString;
     }
 
-    private void showGuessAndKey(String guess, StringBuilder reformattedKey) {
+    private void showGuessAndHintString(String guess, StringBuilder hintString) {
         boolean guessInputFieldEmpty = guessInputField.getText().equals("");
         if (guessInputField.getText().length() <= wordLength && !guessInputFieldEmpty) {
-            previousGuesses.append(guess).append("\t\t").append(reformattedKey).append("\n");
+            previousGuesses.append(guess).append("\t\t").append(hintString).append("\n");
         }
         Platform.runLater(() -> guessesLabel.setText(previousGuesses.toString()));
     }
-
-
 }
