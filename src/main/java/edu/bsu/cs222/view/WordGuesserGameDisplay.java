@@ -54,16 +54,14 @@ public class WordGuesserGameDisplay {
         );
         return vbox;
     }
-    //TODO: break down?
+
     private void processGuess() {
         String guess = guessInputField.getText();
         List<Hint> hintList = wordGuesser.makeHintListFromGuess(guess);
-        StringBuilder hintString = formatHintListForDisplay(hintList, guess);
-        showGuessAndHintString(guess, hintString);
+        showGuessAndDisplayableHint(guess, hintList);
         if (wordGuesser.matchesTemplate(guess)) {
             new PuzzleDonePopUp(taskInventory.getRandom());
-            wordGuesser.createNewTemplateWord();
-            previousGuesses.setLength(0);
+            resetPuzzle();
         }
         guessInputField.clear();
     }
@@ -85,11 +83,17 @@ public class WordGuesserGameDisplay {
         return hintString;
     }
 
-    private void showGuessAndHintString(String guess, StringBuilder hintString) {
+    private void showGuessAndDisplayableHint(String guess, List<Hint> hintList) {
+        StringBuilder hintString = formatHintListForDisplay(hintList, guess);
         boolean guessInputFieldEmpty = guessInputField.getText().equals("");
         if (guessInputField.getText().length() <= wordLength && !guessInputFieldEmpty) {
             previousGuesses.append(guess).append("\t\t").append(hintString).append("\n");
         }
         Platform.runLater(() -> guessesLabel.setText(previousGuesses.toString()));
+    }
+
+    private void resetPuzzle(){
+        wordGuesser.createNewTemplateWord();
+        previousGuesses.setLength(0);
     }
 }

@@ -19,10 +19,9 @@ public class PuzzlePlannerApplication extends Application {
     private final Label taskListLabel = new Label("Tasks:");
     private final Label instructionsLabel = new Label("Create a To-Do list by adding a task.");
     private final TaskInventory taskInventory = new TaskInventory();
-    private final TabPane puzzlePlannerAppTabPane = new TabPane();
-    private final Button removeButton = new Button("Delete");
+    private final TabPane tabPane = new TabPane();
+    private final Button taskRemoveButton = new Button("Delete");
     private final ListView<String> taskListView = new ListView<>();
-
 
     public PuzzlePlannerApplication() throws IOException {
     }
@@ -37,41 +36,49 @@ public class PuzzlePlannerApplication extends Application {
         });
     }
 
-    //TODO: break up method
     private Parent createUI() {
         taskAddButton.setDefaultButton(true);
         VBox vbox = new VBox();
-        setListViewItemsToTaskList();
+        prepareVBoxChildren(vbox);
+        return setTabs(vbox);
+    }
 
-        taskAddButton.setOnAction((pressAdd) -> {
+    private void prepareVBoxChildren(VBox vbox){
+        setListViewItemsToTaskList();
+        setTaskAddButtonAction();
+        setTaskRemoveButtonAction();
+        addChildrenToVBox(vbox);
+    }
+
+    private void setTaskAddButtonAction(){
+        taskAddButton.setOnAction(pressAdd -> {
             String userInput = taskInputField.getText();
             taskInventory.addTask(userInput);
             setListViewItemsToTaskList();
             taskInputField.clear();
         });
+    }
 
-        removeButton.setOnAction((pressRemove -> {
+    private void setTaskRemoveButtonAction(){
+        taskRemoveButton.setOnAction(pressRemove -> {
             try {
                 taskInventory.removeTask(getListViewSelectedItem());
             } catch (IOException e) {
                 e.printStackTrace();
             }
             setListViewItemsToTaskList();
-        }));
+        });
+    }
 
+    private void addChildrenToVBox(VBox vbox){
         vbox.getChildren().addAll(
                 instructionsLabel,
                 taskInputField,
                 taskAddButton,
                 taskListLabel,
                 taskListView,
-                removeButton
+                taskRemoveButton
         );
-        return setTabs(vbox);
-    }
-
-    private String getListViewSelectedItem() {
-        return taskListView.getSelectionModel().getSelectedItem();
     }
 
     private void setListViewItemsToTaskList() {
@@ -79,17 +86,32 @@ public class PuzzlePlannerApplication extends Application {
         taskListView.setItems(taskOutputList);
     }
 
-    //TODO: break up method
+    private String getListViewSelectedItem() {
+        return taskListView.getSelectionModel().getSelectedItem();
+    }
+
     private TabPane setTabs(VBox vbox) {
+        addTaskTab(vbox);
+        addWordGuesserGameTab();
+        setTabPaneStyle();
+        return tabPane;
+    }
+
+    private void addTaskTab(VBox vbox){
         Tab taskTab = new Tab("Tasks", vbox);
+        tabPane.getTabs().add(taskTab);
+    }
+
+    private void addWordGuesserGameTab(){
         WordGuesserGameDisplay wordGuesserGameDisplay = new WordGuesserGameDisplay(taskInventory);
         Tab wordGuesserGameTab = wordGuesserGameDisplay.makeWordGuesserGameTab();
-        puzzlePlannerAppTabPane.setTabClosingPolicy(TabPane.TabClosingPolicy.UNAVAILABLE);
-        puzzlePlannerAppTabPane.getTabs().add(taskTab);
-        puzzlePlannerAppTabPane.getTabs().add(wordGuesserGameTab);
+        tabPane.getTabs().add(wordGuesserGameTab);
+    }
+
+    private void setTabPaneStyle(){
+        tabPane.setTabClosingPolicy(TabPane.TabClosingPolicy.UNAVAILABLE);
         String tabPanePadding = "5px";
-        String puzzlePlannerAppTabPaneStyle = "-fx-padding:" + tabPanePadding;
-        puzzlePlannerAppTabPane.setStyle(puzzlePlannerAppTabPaneStyle);
-        return puzzlePlannerAppTabPane;
+        String tabPaneStyle = "-fx-padding:" + tabPanePadding;
+        tabPane.setStyle(tabPaneStyle);
     }
 }
