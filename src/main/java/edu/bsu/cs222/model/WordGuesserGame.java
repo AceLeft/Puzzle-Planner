@@ -36,7 +36,7 @@ public class WordGuesserGame {
     template but not in that spot (semicorrect), and a letter means the guess
     letter was in the template and in the correct spot (correct).
      */
-    public String makeClueFromGuess(String guess) {
+    public String makeHintListFromGuess(String guess) {
         guess = guess.toLowerCase();
         if (guess.length() != templateWord.length()) {
             //if guess is not correct length, do not return a clue

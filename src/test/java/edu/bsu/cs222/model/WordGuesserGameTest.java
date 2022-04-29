@@ -3,20 +3,29 @@ package edu.bsu.cs222.model;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
-import org.junit.jupiter.params.provider.CsvSource;
+import org.junit.jupiter.params.provider.Arguments;
+import org.junit.jupiter.params.provider.MethodSource;
+
+import java.util.List;
+import java.util.stream.Stream;
 
 public class WordGuesserGameTest {
+
     private final WordGuesserGame wordGuesserGame = new WordGuesserGame("egg");
 
+    private static Stream<Arguments> provideHintListForGuess() {
+        return Stream.of(
+                Arguments.of("keg", List.of(Hint.INCORRECT, Hint.SEMICORRECT, Hint.CORRECT)),
+                Arguments.of("egg", List.of(Hint.CORRECT, Hint.CORRECT, Hint.CORRECT)),
+                Arguments.of("top", List.of(Hint.INCORRECT, Hint.INCORRECT, Hint.INCORRECT)),
+                Arguments.of("gop", List.of(Hint.SEMICORRECT, Hint.INCORRECT, Hint.INCORRECT))
+        );
+    }
+
     @ParameterizedTest
-    @CsvSource({
-            "keg, -*g", //an incorrect, semicorrect, and correct case
-            "egg, egg", //a fully correctly case
-            "top, ---", //a fully incorrect case
-            "gop, *--"  //a semicorrect and incorrect case
-    })
-    public void testMakeClueFromGuess(String guess, String expected) {
-        String result = wordGuesserGame.makeClueFromGuess(guess);
+    @MethodSource({"provideHintListForGuess"})
+    public void testMakeClueFromGuess(String guess, List<Hint> expected) {
+        String result = wordGuesserGame.makeHintListFromGuess(guess);
         Assertions.assertEquals(expected, result);
     }
 

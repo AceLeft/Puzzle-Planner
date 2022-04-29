@@ -54,7 +54,7 @@ public class WordGuesserGameDisplay {
     //TODO: break down?
     private void processGuess() {
         String guess = guessInputField.getText();
-        String key = wordGuesser.makeClueFromGuess(guess);
+        String key = wordGuesser.makeHintListFromGuess(guess);
         StringBuilder reformattedKey = formatKey(key);
         showGuessAndKey(guess, reformattedKey);
         if (wordGuesser.matchesTemplate(guess)) {
