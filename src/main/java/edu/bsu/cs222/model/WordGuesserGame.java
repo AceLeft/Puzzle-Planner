@@ -1,6 +1,8 @@
 package edu.bsu.cs222.model;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 public class WordGuesserGame {
     private String templateWord;
@@ -29,25 +31,18 @@ public class WordGuesserGame {
         return guess.equals(templateWord);
     }
 
-    /*
-    Returns a key representing the relation of letters in the guess
-    with the letters in the template. A "-" means the guess letter
-    is not in the template (incorrect), a "*" means the guess letter is in the
-    template but not in that spot (semicorrect), and a letter means the guess
-    letter was in the template and in the correct spot (correct).
-     */
-    public String makeHintListFromGuess(String guess) {
+    public List<Hint> makeHintListFromGuess(String guess) {
         guess = guess.toLowerCase();
         if (guess.length() != templateWord.length()) {
-            //if guess is not correct length, do not return a clue
-            return "";
+            //if guess is not correct length, do not return a hint
+            return new ArrayList<>();
         }
         templateWordLetters = makeListOfLetters(templateWord);
         guessLetters = makeListOfLetters(guess);
-        String[] clueLetters = new String[templateWord.length()];
-        findCorrectLetters(clueLetters);
-        findIncorrectAndSemiCorrectLetters(clueLetters);
-        return formatClue(clueLetters);
+        Hint[] hintValues = new Hint[templateWord.length()];
+        findCorrectLetters(hintValues);
+        findIncorrectAndSemiCorrectLetters(hintValues);
+        return Arrays.asList(hintValues);
     }
 
     private ArrayList<String> makeListOfLetters(String word) {
@@ -59,13 +54,13 @@ public class WordGuesserGame {
         return wordLetters;
     }
 
-    private void findCorrectLetters(String[] clueLetters) {
+    private void findCorrectLetters(Hint[] clueLetters) {
         String curGuessLetter, curTemplateWordLetter;
         for (int i = 0; i < templateWordLetters.size(); i++) {
             curGuessLetter = guessLetters.get(i);
             curTemplateWordLetter = templateWordLetters.get(i);
             if (curTemplateWordLetter.equals(curGuessLetter)) {
-                clueLetters[i] = curGuessLetter;
+                clueLetters[i] = Hint.CORRECT;
                 //"remove" the letter, so it cannot be checked again
                 templateWordLetters.set(i, "");
                 guessLetters.set(i, "");
@@ -73,28 +68,20 @@ public class WordGuesserGame {
         }
     }
 
-    private void findIncorrectAndSemiCorrectLetters(String[] clueLetters) {
+    private void findIncorrectAndSemiCorrectLetters(Hint[] hintLetters) {
         int j = 0;
         int index;
         boolean letterCheckedPreviously;
         for (String letter : guessLetters) {
             letterCheckedPreviously = letter.equals("");
             if (templateWordLetters.contains(letter) && !letterCheckedPreviously) {
-                clueLetters[j] = "*";
+                hintLetters[j] = Hint.SEMICORRECT;
                 index = templateWordLetters.indexOf(letter);
                 templateWordLetters.set(index, "");
             } else if (!letter.equals("")) {
-                clueLetters[j] = "-";
+                hintLetters[j] = Hint.INCORRECT;
             }
             j++;
         }
-    }
-
-    private String formatClue(String[] clueLetters) {
-        StringBuilder clue = new StringBuilder();
-        for (String key : clueLetters) {
-            clue.append(key);
-        }
-        return clue.toString();
     }
 }

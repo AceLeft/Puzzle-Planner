@@ -1,5 +1,6 @@
 package edu.bsu.cs222.view;
 
+import edu.bsu.cs222.model.Hint;
 import edu.bsu.cs222.model.TaskInventory;
 import edu.bsu.cs222.model.WordGuesserGame;
 import javafx.application.Platform;
@@ -9,6 +10,8 @@ import javafx.scene.control.Tab;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
 import javafx.scene.layout.VBox;
+
+import java.util.List;
 
 public class WordGuesserGameDisplay {
     private final TextField guessInputField = new TextField();
@@ -54,8 +57,8 @@ public class WordGuesserGameDisplay {
     //TODO: break down?
     private void processGuess() {
         String guess = guessInputField.getText();
-        String key = wordGuesser.makeHintListFromGuess(guess);
-        StringBuilder reformattedKey = formatKey(key);
+        List<Hint> key = wordGuesser.makeHintListFromGuess(guess);
+        StringBuilder reformattedKey = formatKey(key, guess);
         showGuessAndKey(guess, reformattedKey);
         if (wordGuesser.matchesTemplate(guess)) {
             new PuzzleDonePopUp(taskInventory.getRandom());
@@ -65,10 +68,17 @@ public class WordGuesserGameDisplay {
         guessInputField.clear();
     }
 
-    private StringBuilder formatKey(String key) {
+    private StringBuilder formatKey(List<Hint> key, String guess) {
         StringBuilder reformattedKey = new StringBuilder();
-        for (char character : key.toCharArray()) {
-            reformattedKey.append(character).append(" ");
+        for (int i = 0; i < key.size(); i++) {
+
+            if (key.get(i).equals(Hint.INCORRECT)) {
+                reformattedKey.append('-');
+            } else if (key.get(i).equals(Hint.SEMICORRECT)) {
+                reformattedKey.append('*');
+            } else {
+                reformattedKey.append(guess.charAt(i));
+            }
         }
         return reformattedKey;
     }

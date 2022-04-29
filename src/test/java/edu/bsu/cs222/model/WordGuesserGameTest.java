@@ -25,7 +25,7 @@ public class WordGuesserGameTest {
     @ParameterizedTest
     @MethodSource({"provideHintListForGuess"})
     public void testMakeClueFromGuess(String guess, List<Hint> expected) {
-        String result = wordGuesserGame.makeHintListFromGuess(guess);
+        List<Hint> result = wordGuesserGame.makeHintListFromGuess(guess);
         Assertions.assertEquals(expected, result);
     }
 
