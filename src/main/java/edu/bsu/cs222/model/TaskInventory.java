@@ -7,7 +7,7 @@ import java.util.Scanner;
 public class TaskInventory {
 
     private final ArrayList<String> taskList = new ArrayList<>();
-    private PrintWriter taskFile;
+    private PrintWriter taskWriter;
     private final String fileLocation;
 
     public TaskInventory() throws IOException {
@@ -21,7 +21,7 @@ public class TaskInventory {
     }
 
     private void setUpFileAndTaskList() throws IOException {
-        taskFile = new PrintWriter(new FileWriter(fileLocation, true));
+        taskWriter = new PrintWriter(new FileWriter(fileLocation, true));
         Scanner taskScanner = new Scanner(new File(fileLocation));
         while (taskScanner.hasNext()) {
             taskList.add(taskScanner.nextLine());
@@ -32,22 +32,22 @@ public class TaskInventory {
     public void addTask(String task) {
         if (!task.equals("")) {
             taskList.add(task);
-            taskFile.println(task);
+            taskWriter.println(task);
         }
     }
 
     public void removeTask(String task) throws IOException {
         taskList.remove(task);
         closePrintWriter();
-        taskFile = new PrintWriter(new FileWriter(fileLocation));
+        taskWriter = new PrintWriter(new FileWriter(fileLocation));
         for (String otherTask : taskList) {
-            taskFile.println(otherTask);
+            taskWriter.println(otherTask);
         }
     }
 
     public void removeAllTasks() throws IOException {
         closePrintWriter();
-        taskFile = new PrintWriter(new FileWriter(fileLocation));
+        taskWriter = new PrintWriter(new FileWriter(fileLocation));
         taskList.clear();
     }
 
@@ -71,7 +71,7 @@ public class TaskInventory {
     }
 
     public void closePrintWriter() {
-        taskFile.close();
+        taskWriter.close();
     }
 
 }

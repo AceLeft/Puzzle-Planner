@@ -11,6 +11,7 @@ import javafx.scene.control.*;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
+import java.io.FileNotFoundException;
 import java.io.IOException;
 
 public class PuzzlePlannerApplication extends Application {
@@ -55,7 +56,11 @@ public class PuzzlePlannerApplication extends Application {
     private void setTaskSaveButtonAction() {
         taskSaveButton.setOnAction(pressSave -> {
             FileSavePopUp fileSavePopUp = new FileSavePopUp(taskInventory);
-            fileSavePopUp.showSavePopUp();
+            try {
+                fileSavePopUp.showSavePopUp();
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+            }
         });
     }
 
