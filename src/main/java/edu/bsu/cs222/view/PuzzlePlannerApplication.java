@@ -16,6 +16,7 @@ import java.io.IOException;
 public class PuzzlePlannerApplication extends Application {
     private final TextField taskInputField = new TextField();
     private final Button taskAddButton = new Button("Add");
+    private final Button taskSaveButton = new Button("Save");
     private final Label taskListLabel = new Label("Tasks:");
     private final Label instructionsLabel = new Label("Create a To-Do list by adding a task.");
     private final TaskInventory taskInventory = new TaskInventory();
@@ -43,14 +44,22 @@ public class PuzzlePlannerApplication extends Application {
         return setTabs(vbox);
     }
 
-    private void prepareVBoxChildren(VBox vbox){
+    private void prepareVBoxChildren(VBox vbox) {
         setListViewItemsToTaskList();
         setTaskAddButtonAction();
         setTaskRemoveButtonAction();
+        setTaskSaveButtonAction();
         addChildrenToVBox(vbox);
     }
 
-    private void setTaskAddButtonAction(){
+    private void setTaskSaveButtonAction() {
+        taskSaveButton.setOnAction(pressSave -> {
+            FileSavePopUp fileSavePopUp = new FileSavePopUp(taskInventory);
+            fileSavePopUp.showSavePopUp();
+        });
+    }
+
+    private void setTaskAddButtonAction() {
         taskAddButton.setOnAction(pressAdd -> {
             String userInput = taskInputField.getText();
             taskInventory.addTask(userInput);
@@ -77,7 +86,8 @@ public class PuzzlePlannerApplication extends Application {
                 taskAddButton,
                 taskListLabel,
                 taskListView,
-                taskRemoveButton
+                taskRemoveButton,
+                taskSaveButton
         );
     }
 
