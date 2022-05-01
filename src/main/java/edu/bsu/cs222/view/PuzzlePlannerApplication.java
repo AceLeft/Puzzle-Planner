@@ -17,10 +17,11 @@ import java.io.IOException;
 public class PuzzlePlannerApplication extends Application {
     private final TextField taskInputField = new TextField();
     private final Button taskAddButton = new Button("Add");
-    private final Button taskSaveButton = new Button("Save List");
+    private final Button taskListSaveButton = new Button("Save List");
+    private final Button taskListLoadButton = new Button("Load List");
     private final Label taskListLabel = new Label("Tasks:");
     private final Label instructionsLabel = new Label("Create a To-Do list by adding a task.");
-    private final TaskInventory taskInventory = new TaskInventory();
+    private TaskInventory taskInventory = new TaskInventory();
     private final TabPane tabPane = new TabPane();
     private final Button taskRemoveButton = new Button("Delete");
     private final ListView<String> taskListView = new ListView<>();
@@ -50,7 +51,8 @@ public class PuzzlePlannerApplication extends Application {
         setListViewItemsToTaskList();
         setTaskAddButtonAction();
         setTaskRemoveButtonAction();
-        setTaskSaveButtonAction();
+        setTaskListSaveButtonAction();
+        setTaskListLoadButtonAction();
     }
 
     private void setTaskAddButtonAction() {
@@ -73,14 +75,27 @@ public class PuzzlePlannerApplication extends Application {
         });
     }
 
-    private void setTaskSaveButtonAction() {
-        taskSaveButton.setOnAction(pressSave -> {
+    private void setTaskListSaveButtonAction() {
+        taskListSaveButton.setOnAction(pressSave -> {
             FileSavePopUp fileSavePopUp = new FileSavePopUp(taskInventory);
             try {
                 fileSavePopUp.showSavePopUp();
             } catch (FileNotFoundException e) {
                 e.printStackTrace();
             }
+        });
+    }
+
+    private void setTaskListLoadButtonAction() {
+        taskListLoadButton.setOnAction(pressLoad -> {
+            FileLoadPopUp fileLoadPopUp = new FileLoadPopUp();
+            String path = fileLoadPopUp.showLoadPopUp();
+            try {
+                taskInventory = new TaskInventory(path);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            setListViewItemsToTaskList();
         });
     }
 
@@ -92,7 +107,8 @@ public class PuzzlePlannerApplication extends Application {
                 taskRemoveButton,
                 taskListLabel,
                 taskListView,
-                taskSaveButton
+                taskListSaveButton,
+                taskListLoadButton
         );
     }
 
