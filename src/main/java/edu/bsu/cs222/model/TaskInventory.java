@@ -74,7 +74,4 @@ public class TaskInventory {
         taskFile.close();
     }
 
-    public PrintWriter getPrintWriter() {
-        return taskFile;
-    }
 }

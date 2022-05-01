@@ -13,8 +13,8 @@ import java.util.logging.Logger;
 
 
 public class FileSavePopUp {
-    private FileChooser fileChooser;
-    private TaskInventory taskInventory;
+    private final FileChooser fileChooser;
+    private final TaskInventory taskInventory;
 
     public FileSavePopUp(TaskInventory taskInventory) {
         this.taskInventory = taskInventory;
@@ -33,11 +33,12 @@ public class FileSavePopUp {
     }
 
     private void saveTextToFile(File file) {
-        String content = "hungus";
         try {
             PrintWriter writer;
             writer = new PrintWriter(file);
-            writer.println(content);
+            for (String task : taskInventory.getTaskList()) {
+                writer.println(task);
+            }
             writer.close();
         } catch (IOException ex) {
             Logger.getLogger(FileSavePopUp.class.getName()).log(Level.SEVERE, null, ex);
