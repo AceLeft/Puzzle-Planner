@@ -29,7 +29,6 @@ public class FileSavePopUp {
     }
 
     private void saveTextToFile(File taskTextFile) throws FileNotFoundException {
-
         PrintWriter taskWriter;
         taskWriter = new PrintWriter(taskTextFile);
         for (String task : taskInventory.getTaskList()) {

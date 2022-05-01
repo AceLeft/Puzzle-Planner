@@ -12,15 +12,15 @@ public class TaskInventory {
 
     public TaskInventory() throws IOException {
         fileLocation = "src/main/resources/tasks.txt";
-        setUpFileAndTaskList();
+        setUpTaskList();
     }
 
     public TaskInventory(String fileLocation) throws IOException {
         this.fileLocation = fileLocation;
-        setUpFileAndTaskList();
+        setUpTaskList();
     }
 
-    private void setUpFileAndTaskList() throws IOException {
+    private void setUpTaskList() throws IOException {
         taskWriter = new PrintWriter(new FileWriter(fileLocation, true));
         Scanner taskScanner = new Scanner(new File(fileLocation));
         while (taskScanner.hasNext()) {
@@ -71,7 +71,12 @@ public class TaskInventory {
     }
 
     public void closePrintWriter() {
-        taskWriter.close();
+        System.out.println(taskWriter);
+        try {
+            taskWriter.close();
+        } catch (NullPointerException e) {
+            e.printStackTrace();
+        }
     }
 
 }
