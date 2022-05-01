@@ -10,21 +10,21 @@ import javafx.stage.Stage;
 public class PuzzleDonePopUp {
     private Label taskExitLabel;
     private Label taskCompleteLabel;
-    private VBox dialogBox;
-    private Stage dialogStage;
+    private VBox puzzleDoneBox;
+    private Stage puzzleDoneStage;
     private final String task;
 
     public PuzzleDonePopUp(String task) {
         this.task = task;
-        defineDialogStage();
+        defineStage();
     }
 
-    private void defineDialogStage() {
-        dialogStage = new Stage();
+    private void defineStage() {
+        puzzleDoneStage = new Stage();
         defineLabels();
         defineVBox();
         styleStage();
-        dialogStage.show();
+        puzzleDoneStage.show();
     }
 
     private void defineLabels() {
@@ -41,8 +41,8 @@ public class PuzzleDonePopUp {
     }
 
     private void defineVBox() {
-        dialogBox = new VBox();
-        dialogBox.getChildren().addAll(
+        puzzleDoneBox = new VBox();
+        puzzleDoneBox.getChildren().addAll(
                 taskCompleteLabel,
                 taskExitLabel
         );
@@ -52,13 +52,13 @@ public class PuzzleDonePopUp {
     private void styleVBox() {
         String popUpPadding = "5px";
         String dialogBoxStyle = "-fx-padding:" + popUpPadding;
-        dialogBox.setStyle(dialogBoxStyle);
-        dialogBox.autosize();
+        puzzleDoneBox.setStyle(dialogBoxStyle);
+        puzzleDoneBox.autosize();
     }
 
     private void styleStage() {
-        dialogStage.initModality(Modality.APPLICATION_MODAL);
-        dialogStage.setScene(new Scene(dialogBox));
-        dialogStage.onCloseRequestProperty();
+        puzzleDoneStage.initModality(Modality.APPLICATION_MODAL);
+        puzzleDoneStage.setScene(new Scene(puzzleDoneBox));
+        puzzleDoneStage.onCloseRequestProperty();
     }
 }

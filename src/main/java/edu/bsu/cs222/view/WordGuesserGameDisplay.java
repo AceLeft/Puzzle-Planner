@@ -16,7 +16,7 @@ import java.util.List;
 public class WordGuesserGameDisplay {
     private final TextField guessInputField = new TextField();
     private final Button guessButton = new Button("Guess!");
-    private final Label guessesLabel = new Label( "");
+    private final Label guessesLabel = new Label("");
     private final Label instructionsLabel = new Label("");
     private final WordGuesserGame wordGuesser = new WordGuesserGame();
     private final StringBuilder previousGuesses = new StringBuilder();
@@ -66,6 +66,15 @@ public class WordGuesserGameDisplay {
         guessInputField.clear();
     }
 
+    private void showGuessAndDisplayableHint(String guess, List<Hint> hintList) {
+        StringBuilder hintString = formatHintListForDisplay(hintList, guess);
+        boolean guessInputFieldEmpty = guessInputField.getText().equals("");
+        if (guessInputField.getText().length() <= wordLength && !guessInputFieldEmpty) {
+            previousGuesses.append(guess).append("\t\t").append(hintString).append("\n");
+        }
+        Platform.runLater(() -> guessesLabel.setText(previousGuesses.toString()));
+    }
+
     private StringBuilder formatHintListForDisplay(List<Hint> hintList, String guess) {
         StringBuilder hintString = new StringBuilder();
         String incorrectSymbol = "-";
@@ -83,16 +92,7 @@ public class WordGuesserGameDisplay {
         return hintString;
     }
 
-    private void showGuessAndDisplayableHint(String guess, List<Hint> hintList) {
-        StringBuilder hintString = formatHintListForDisplay(hintList, guess);
-        boolean guessInputFieldEmpty = guessInputField.getText().equals("");
-        if (guessInputField.getText().length() <= wordLength && !guessInputFieldEmpty) {
-            previousGuesses.append(guess).append("\t\t").append(hintString).append("\n");
-        }
-        Platform.runLater(() -> guessesLabel.setText(previousGuesses.toString()));
-    }
-
-    private void resetPuzzle(){
+    private void resetPuzzle() {
         wordGuesser.createNewTemplateWord();
         previousGuesses.setLength(0);
     }

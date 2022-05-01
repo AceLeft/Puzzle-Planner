@@ -10,12 +10,12 @@ public class WordGuesserGame {
     private List<String> templateWordLetters;
     private List<String> guessLetters;
 
-    public WordGuesserGame(String word) {
-        templateWord = word;
-    }
-
     public WordGuesserGame() {
         createNewTemplateWord();
+    }
+
+    public WordGuesserGame(String word) {
+        templateWord = word;
     }
 
     public void createNewTemplateWord() {

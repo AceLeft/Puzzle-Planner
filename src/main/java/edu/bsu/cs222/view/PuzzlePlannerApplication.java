@@ -17,7 +17,7 @@ import java.io.IOException;
 public class PuzzlePlannerApplication extends Application {
     private final TextField taskInputField = new TextField();
     private final Button taskAddButton = new Button("Add");
-    private final Button taskSaveButton = new Button("Save");
+    private final Button taskSaveButton = new Button("Save List");
     private final Label taskListLabel = new Label("Tasks:");
     private final Label instructionsLabel = new Label("Create a To-Do list by adding a task.");
     private final TaskInventory taskInventory = new TaskInventory();
@@ -41,16 +41,36 @@ public class PuzzlePlannerApplication extends Application {
     private Parent createUI() {
         taskAddButton.setDefaultButton(true);
         VBox vbox = new VBox();
-        prepareVBoxChildren(vbox);
+        defineVBoxChildren();
+        addChildrenToVBox(vbox);
         return setTabs(vbox);
     }
 
-    private void prepareVBoxChildren(VBox vbox) {
+    private void defineVBoxChildren() {
         setListViewItemsToTaskList();
         setTaskAddButtonAction();
         setTaskRemoveButtonAction();
         setTaskSaveButtonAction();
-        addChildrenToVBox(vbox);
+    }
+
+    private void setTaskAddButtonAction() {
+        taskAddButton.setOnAction(pressAdd -> {
+            String userInput = taskInputField.getText();
+            taskInventory.addTask(userInput);
+            setListViewItemsToTaskList();
+            taskInputField.clear();
+        });
+    }
+
+    private void setTaskRemoveButtonAction() {
+        taskRemoveButton.setOnAction(pressRemove -> {
+            try {
+                taskInventory.removeTask(getListViewSelectedItem());
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            setListViewItemsToTaskList();
+        });
     }
 
     private void setTaskSaveButtonAction() {
@@ -64,34 +84,14 @@ public class PuzzlePlannerApplication extends Application {
         });
     }
 
-    private void setTaskAddButtonAction() {
-        taskAddButton.setOnAction(pressAdd -> {
-            String userInput = taskInputField.getText();
-            taskInventory.addTask(userInput);
-            setListViewItemsToTaskList();
-            taskInputField.clear();
-        });
-    }
-
-    private void setTaskRemoveButtonAction(){
-        taskRemoveButton.setOnAction(pressRemove -> {
-            try {
-                taskInventory.removeTask(getListViewSelectedItem());
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-            setListViewItemsToTaskList();
-        });
-    }
-
-    private void addChildrenToVBox(VBox vbox){
+    private void addChildrenToVBox(VBox vbox) {
         vbox.getChildren().addAll(
                 instructionsLabel,
                 taskInputField,
                 taskAddButton,
+                taskRemoveButton,
                 taskListLabel,
                 taskListView,
-                taskRemoveButton,
                 taskSaveButton
         );
     }

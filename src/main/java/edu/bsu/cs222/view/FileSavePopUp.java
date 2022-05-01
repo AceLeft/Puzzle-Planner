@@ -23,8 +23,10 @@ public class FileSavePopUp {
     public void showSavePopUp() throws FileNotFoundException {
         Stage fileSaveStage = new Stage();
         File taskTextFile = fileChooser.showSaveDialog(fileSaveStage);
-        if (taskTextFile != null) {
+        try {
             saveTextToFile(taskTextFile);
+        } catch (NullPointerException e) {
+            e.printStackTrace();
         }
     }
 
@@ -35,6 +37,5 @@ public class FileSavePopUp {
             taskWriter.println(task);
         }
         taskWriter.close();
-
     }
 }
